@@ -10,7 +10,7 @@ Developing 2D game engine course project<br>
 
 # Timeline
 - **7.13** <br>
-1. Logo1 and Logo2 deisgned by Wang Xingwen and Guo Mengwei
+
 
 
 
