@@ -138,15 +138,7 @@
         // switch to start UI when press ENTER
         if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Enter)) {
             gEngine.GameLoop.stop();
-//            this.unloadScene();
         }
-        
-//        // switch to start UI when press ENTER
-//        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
-//            var v = this.mCamera2.getViewport();
-//            v[1] += 1;
-//            this.mCamera2.setViewport(v, 0);
-//        }
         
         
         

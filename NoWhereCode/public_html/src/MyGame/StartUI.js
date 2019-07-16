@@ -127,8 +127,7 @@ StartUI.prototype.update = function () {
         
     }
 
-    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
-    }
+
     
     msg += " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
     this.mMsg.setText(msg);
