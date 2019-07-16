@@ -36,7 +36,7 @@ StartUI.prototype.unloadScene = function () {
         gEngine.Core.startScene(new AuthorInfo());
     } else if (this.mNextScene == "GameRuleInfo") {
         gEngine.Core.startScene(new GameRuleInfo());
-    } else if (this.mNextScene == "MainGame") {
+    } else if (this.mNextScene == "MainPage") {
         gEngine.Core.startScene(new MyGame());
     }
 };
