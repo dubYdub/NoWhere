@@ -1,4 +1,4 @@
-![logo](https://github.com/dubYdub/NoWhere/blob/master/logos/logo1.png)
+![logo](https://github.com/dubYdub/NoWhere/blob/master/images/logos/logo1(round).png)
 
 
 
