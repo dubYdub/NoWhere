@@ -15,7 +15,10 @@ function PlayGame() {
     // The camera to view the scene
     this.logo1 = "assets/logo1.png"
     this.kBg = "assets/bg.png";
+
     this.kBgNormal = "assets/bg_normal.png";
+    this.kCaption1 = "assets/Words.png";
+    
     this.mCamera = null;
     this.msquare1 = null;
     this.msquare2 = null;
@@ -41,7 +44,6 @@ function PlayGame() {
     this.mItem4BBox = null;
     this.mItem5BBox = null;
     
-    //光
     this.heroLight = null;
     this.heroCamera = null;
     this.mGlobalLightSet = null;
@@ -49,8 +51,15 @@ function PlayGame() {
     
     this.kDelta = 0.3;
     this.deltaV = 0.1;
+    
+    
     this.mMsg = null;
+    this.mCaption = null;
+    this.mIsFollow = true;
+    this.IsMove = true;
+    this.mPauseTime = 2;     // The time the user can pause to see the whole scene
 }
+
 gEngine.Core.inheritPrototype(PlayGame, Scene);
 
 
@@ -58,12 +67,16 @@ PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.logo1);
     gEngine.Textures.loadTexture(this.kBg);
     gEngine.Textures.loadTexture(this.kBgNormal);
+    gEngine.Textures.loadTexture(this.kCaption1);
+//    gEngine.Textures.loadTexture(this.Caption1);
 };
 
 PlayGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.logo1);
     gEngine.Textures.unloadTexture(this.kBg);
     gEngine.Textures.unloadTexture(this.kBgNormal);
+//    gEngine.Textures.unloadTexture(this.Caption1);
+
     //    gEngine.Textures.unloadTexture(this.kLogo);
     gEngine.Core.startScene(new StartUI());
 
@@ -73,7 +86,7 @@ PlayGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
         vec2.fromValues(50, 50), // position of the camera
-        100,                     // width of camera
+        15,                     // width of camera
         [0, 0, 630, 630]         // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([1,0.98,0.85,1]);   
@@ -210,6 +223,8 @@ PlayGame.prototype.initialize = function () {
      this.mItem3BBox = this.mItem3.getBBox();
      this.mItem4BBox = this.mItem4.getBBox();
      this.mItem5BBox = this.mItem5.getBBox();
+     
+     this.mCaption = new Caption(this.kCaption1);
 };
 
 PlayGame.prototype._createALight = function (type, pos, dir, color, n, f, inner, outer, intensity, dropOff) {
@@ -308,7 +323,39 @@ PlayGame.prototype.draw = function () {
     this.mItem5.draw(this.mCamera);
     
     this.mMsg.draw(this.mCamera);
+    this.mCaption.draw(this.mCamera);
+    
 };
+
+// This function will judge if the hero is the indicated circle
+PlayGame.prototype.judgeArea = function(posX, posY, radius) {
+    var heroX = this.mHero.getXform().getXPos();
+    var heroY = this.mHero.getXform().getYPos();
+    
+    var distance = (heroX-posX)*(heroX-posX) + (heroY-posY)*(heroY-posY);   
+    if (radius*radius > distance) {
+        return 1;
+    }
+}
+
+PlayGame.prototype.switchCamera = function(toBig) {
+    
+    // from small to big
+    if ((toBig == true) && (this.mCamera.getWCWidth() != 100)) {
+        // camera don't follow the hero
+        this.mIsFollow = false;
+        this.mCamera.setWCCenter(50,50);
+        if (this.mCamera.getWCWidth() <= 90) {
+           this.mCamera.setWCWidth(100);
+        }
+    // from big to small
+    } else if ((toBig == false) && (this.mCamera.getWCWidth() == 100)) {
+        this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
+        this.mCamera.setWCWidth(15);
+        // camera start following the hero
+        this.mIsFollow = true;
+    }
+}
 
 PlayGame.prototype.update = function () {
     this.mCamera.update();
@@ -318,125 +365,136 @@ PlayGame.prototype.update = function () {
 
     var v = this.mGlobalLightSet.getLightAt(0).getColor();
     
-       
+    
+//    if (this.mCaption.mCaption1.getXform().getHeight() === 0 ) {
+//        this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
+//        this.mCamera.setWCWidth(15);
+//    } else {
+//        this.mCamera.setWCCenter(50,50);
+//        if (this.mCamera.getWCWidth() <= 95) {
+//           this.mCamera.setWCWidth(this.mCamera.getWCWidth()+5);
+//        }
+//    }
     
     var xform = this.mHero.getXform();
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W) && this.mHero.getXform().getYPos() <= 98) {
-        xform.incYPosBy(this.kDelta);
-        var hBbox = this.mHero.getBBox();
-        var sq1Bbox = this.msquare1.getBBox();
-        var sq2Bbox = this.msquare2.getBBox();
-        var sq3Bbox = this.msquare3.getBBox();
-        var sq4Bbox = this.msquare4.getBBox();
-        var sq5Bbox = this.msquare5.getBBox();
-        var sq6Bbox = this.msquare6.getBBox();
-        var sq7Bbox = this.msquare7.getBBox();
-        var sq8Bbox = this.msquare8.getBBox();
-        if(hBbox.intersectsBound(sq1Bbox) ||
-                hBbox.intersectsBound(sq2Bbox) ||
-                hBbox.intersectsBound(sq3Bbox) ||
-                hBbox.intersectsBound(sq4Bbox) ||
-                hBbox.intersectsBound(sq5Bbox) ||
-                hBbox.intersectsBound(sq6Bbox) ||
-                hBbox.intersectsBound(sq7Bbox) ||
-                hBbox.intersectsBound(sq8Bbox) 
-                ){
-            xform.incYPosBy(-this.kDelta);      
-        }
-        this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
-        this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
-            
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S) && this.mHero.getXform().getYPos() >= 2) {
-        xform.incYPosBy(-this.kDelta);
-//        var hBbox = this.mHero.getBBox();
-//        var sq1Bbox = this.msquare1.getBBox();
-//        if(hBbox.intersectsBound(sq1Bbox)){
-//            xform.incYPosBy(this.kDelta);
-//        }
-        var hBbox = this.mHero.getBBox();
-        var sq1Bbox = this.msquare1.getBBox();
-        var sq2Bbox = this.msquare2.getBBox();
-        var sq3Bbox = this.msquare3.getBBox();
-        var sq4Bbox = this.msquare4.getBBox();
-        var sq5Bbox = this.msquare5.getBBox();
-        var sq6Bbox = this.msquare6.getBBox();
-        var sq7Bbox = this.msquare7.getBBox();
-        var sq8Bbox = this.msquare8.getBBox();
-        if(hBbox.intersectsBound(sq1Bbox) ||
-                hBbox.intersectsBound(sq2Bbox) ||
-                hBbox.intersectsBound(sq3Bbox) ||
-                hBbox.intersectsBound(sq4Bbox) ||
-                hBbox.intersectsBound(sq5Bbox) ||
-                hBbox.intersectsBound(sq6Bbox) ||
-                hBbox.intersectsBound(sq7Bbox) ||
-                hBbox.intersectsBound(sq8Bbox) 
-                ){
-            xform.incYPosBy(this.kDelta);     
-        }
-        this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
-        this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+    if (this.IsMove == true) {
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W) && this.mHero.getXform().getYPos() <= 98) {
+            xform.incYPosBy(this.kDelta);
+            var hBbox = this.mHero.getBBox();
+            var sq1Bbox = this.msquare1.getBBox();
+            var sq2Bbox = this.msquare2.getBBox();
+            var sq3Bbox = this.msquare3.getBBox();
+            var sq4Bbox = this.msquare4.getBBox();
+            var sq5Bbox = this.msquare5.getBBox();
+            var sq6Bbox = this.msquare6.getBBox();
+            var sq7Bbox = this.msquare7.getBBox();
+            var sq8Bbox = this.msquare8.getBBox();
+            if(hBbox.intersectsBound(sq1Bbox) ||
+                    hBbox.intersectsBound(sq2Bbox) ||
+                    hBbox.intersectsBound(sq3Bbox) ||
+                    hBbox.intersectsBound(sq4Bbox) ||
+                    hBbox.intersectsBound(sq5Bbox) ||
+                    hBbox.intersectsBound(sq6Bbox) ||
+                    hBbox.intersectsBound(sq7Bbox) ||
+                    hBbox.intersectsBound(sq8Bbox) 
+                    ){
+                xform.incYPosBy(-this.kDelta);      
+            }
+            this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
 
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A) && this.mHero.getXform().getXPos() >= 2) {
-        xform.incXPosBy(-this.kDelta);
-//        var hBbox = this.mHero.getBBox();
-//        var sq1Bbox = this.msquare1.getBBox();
-//        if(hBbox.intersectsBound(sq1Bbox)){
-//            xform.incXPosBy(this.kDelta);
-//        }
-        var hBbox = this.mHero.getBBox();
-        var sq1Bbox = this.msquare1.getBBox();
-        var sq2Bbox = this.msquare2.getBBox();
-        var sq3Bbox = this.msquare3.getBBox();
-        var sq4Bbox = this.msquare4.getBBox();
-        var sq5Bbox = this.msquare5.getBBox();
-        var sq6Bbox = this.msquare6.getBBox();
-        var sq7Bbox = this.msquare7.getBBox();
-        var sq8Bbox = this.msquare8.getBBox();
-        if(hBbox.intersectsBound(sq1Bbox) ||
-                hBbox.intersectsBound(sq2Bbox) ||
-                hBbox.intersectsBound(sq3Bbox) ||
-                hBbox.intersectsBound(sq4Bbox) ||
-                hBbox.intersectsBound(sq5Bbox) ||
-                hBbox.intersectsBound(sq6Bbox) ||
-                hBbox.intersectsBound(sq7Bbox) ||
-                hBbox.intersectsBound(sq8Bbox) 
-                ){
-            xform.incXPosBy(this.kDelta);     
         }
-        this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
-        this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D) && this.mHero.getXform().getXPos() <= 98) {
-        xform.incXPosBy(this.kDelta);
-//        var hBbox = this.mHero.getBBox();
-//        var sq1Bbox = this.msquare1.getBBox();
-//        if(hBbox.intersectsBound(sq1Bbox)){
-//            xform.incXPosBy(-this.kDelta);
-//        }
-        var hBbox = this.mHero.getBBox();
-        var sq1Bbox = this.msquare1.getBBox();
-        var sq2Bbox = this.msquare2.getBBox();
-        var sq3Bbox = this.msquare3.getBBox();
-        var sq4Bbox = this.msquare4.getBBox();
-        var sq5Bbox = this.msquare5.getBBox();
-        var sq6Bbox = this.msquare6.getBBox();
-        var sq7Bbox = this.msquare7.getBBox();
-        var sq8Bbox = this.msquare8.getBBox();
-        if(hBbox.intersectsBound(sq1Bbox) ||
-                hBbox.intersectsBound(sq2Bbox) ||
-                hBbox.intersectsBound(sq3Bbox) ||
-                hBbox.intersectsBound(sq4Bbox) ||
-                hBbox.intersectsBound(sq5Bbox) ||
-                hBbox.intersectsBound(sq6Bbox) ||
-                hBbox.intersectsBound(sq7Bbox) ||
-                hBbox.intersectsBound(sq8Bbox) 
-                ){
-            xform.incXPosBy(-this.kDelta);     
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S) && this.mHero.getXform().getYPos() >= 2) {
+            xform.incYPosBy(-this.kDelta);
+    //        var hBbox = this.mHero.getBBox();
+    //        var sq1Bbox = this.msquare1.getBBox();
+    //        if(hBbox.intersectsBound(sq1Bbox)){
+    //            xform.incYPosBy(this.kDelta);
+    //        }
+            var hBbox = this.mHero.getBBox();
+            var sq1Bbox = this.msquare1.getBBox();
+            var sq2Bbox = this.msquare2.getBBox();
+            var sq3Bbox = this.msquare3.getBBox();
+            var sq4Bbox = this.msquare4.getBBox();
+            var sq5Bbox = this.msquare5.getBBox();
+            var sq6Bbox = this.msquare6.getBBox();
+            var sq7Bbox = this.msquare7.getBBox();
+            var sq8Bbox = this.msquare8.getBBox();
+            if(hBbox.intersectsBound(sq1Bbox) ||
+                    hBbox.intersectsBound(sq2Bbox) ||
+                    hBbox.intersectsBound(sq3Bbox) ||
+                    hBbox.intersectsBound(sq4Bbox) ||
+                    hBbox.intersectsBound(sq5Bbox) ||
+                    hBbox.intersectsBound(sq6Bbox) ||
+                    hBbox.intersectsBound(sq7Bbox) ||
+                    hBbox.intersectsBound(sq8Bbox) 
+                    ){
+                xform.incYPosBy(this.kDelta);     
+            }
+            this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+
         }
-        this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
-        this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A) && this.mHero.getXform().getXPos() >= 2) {
+            xform.incXPosBy(-this.kDelta);
+    //        var hBbox = this.mHero.getBBox();
+    //        var sq1Bbox = this.msquare1.getBBox();
+    //        if(hBbox.intersectsBound(sq1Bbox)){
+    //            xform.incXPosBy(this.kDelta);
+    //        }
+            var hBbox = this.mHero.getBBox();
+            var sq1Bbox = this.msquare1.getBBox();
+            var sq2Bbox = this.msquare2.getBBox();
+            var sq3Bbox = this.msquare3.getBBox();
+            var sq4Bbox = this.msquare4.getBBox();
+            var sq5Bbox = this.msquare5.getBBox();
+            var sq6Bbox = this.msquare6.getBBox();
+            var sq7Bbox = this.msquare7.getBBox();
+            var sq8Bbox = this.msquare8.getBBox();
+            if(hBbox.intersectsBound(sq1Bbox) ||
+                    hBbox.intersectsBound(sq2Bbox) ||
+                    hBbox.intersectsBound(sq3Bbox) ||
+                    hBbox.intersectsBound(sq4Bbox) ||
+                    hBbox.intersectsBound(sq5Bbox) ||
+                    hBbox.intersectsBound(sq6Bbox) ||
+                    hBbox.intersectsBound(sq7Bbox) ||
+                    hBbox.intersectsBound(sq8Bbox) 
+                    ){
+                xform.incXPosBy(this.kDelta);     
+            }
+            this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+        }
+        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D) && this.mHero.getXform().getXPos() <= 98) {
+            xform.incXPosBy(this.kDelta);
+    //        var hBbox = this.mHero.getBBox();
+    //        var sq1Bbox = this.msquare1.getBBox();
+    //        if(hBbox.intersectsBound(sq1Bbox)){
+    //            xform.incXPosBy(-this.kDelta);
+    //        }
+            var hBbox = this.mHero.getBBox();
+            var sq1Bbox = this.msquare1.getBBox();
+            var sq2Bbox = this.msquare2.getBBox();
+            var sq3Bbox = this.msquare3.getBBox();
+            var sq4Bbox = this.msquare4.getBBox();
+            var sq5Bbox = this.msquare5.getBBox();
+            var sq6Bbox = this.msquare6.getBBox();
+            var sq7Bbox = this.msquare7.getBBox();
+            var sq8Bbox = this.msquare8.getBBox();
+            if(hBbox.intersectsBound(sq1Bbox) ||
+                    hBbox.intersectsBound(sq2Bbox) ||
+                    hBbox.intersectsBound(sq3Bbox) ||
+                    hBbox.intersectsBound(sq4Bbox) ||
+                    hBbox.intersectsBound(sq5Bbox) ||
+                    hBbox.intersectsBound(sq6Bbox) ||
+                    hBbox.intersectsBound(sq7Bbox) ||
+                    hBbox.intersectsBound(sq8Bbox) 
+                    ){
+                xform.incXPosBy(-this.kDelta);     
+            }
+            this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+        }
     }
     
     
@@ -496,4 +554,33 @@ PlayGame.prototype.update = function () {
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         gEngine.GameLoop.stop();   
     }
+    
+    
+    // the update of mCaption
+    this.mCaption.update();
+    if (this.judgeArea(50, 70, 5) && (this.mCaption.isRead == false) ) {
+        this.mCaption.mCaption1.getXform().setSize(100,100);
+        this.mCaption.isRead = true;
+    }  
+    
+    
+    // press C to follow
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
+//             gEngine.GameLoop.stop();   
+        this.switchCamera(false); 
+        this.IsMove = true;
+    }
+    
+    // press V to pause
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V) && this.mPauseTime >= 0) {
+        this.mPauseTime = this.mPauseTime -1;
+//             gEngine.GameLoop.stop();   
+        this.switchCamera(true); 
+        this.IsMove = false;
+    }
+    
+    if (this.mIsFollow == true) {
+        this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());
+    }
+    
 };
