@@ -27,8 +27,5 @@ function Caption(spriteTexture, posX, posY) {
 gEngine.Core.inheritPrototype(Caption, GameObject);
 
 Caption.prototype.update = function () {
-     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.isRead = true)) {
-        this.mCaption1.getXform().setSize(0, 0); 
-        
-     }
+
 };

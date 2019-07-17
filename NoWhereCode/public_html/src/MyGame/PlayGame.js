@@ -17,7 +17,9 @@ function PlayGame() {
     this.kBg = "assets/bg.png";
 
     this.kBgNormal = "assets/bg_normal.png";
-    this.kCaption1 = "assets/Words.png";
+    this.kCaption1 = "assets/clue1.png";
+    this.kCaption2 = "assets/clue2.png";
+    this.kCaption3 = "assets/clue3.png";
     
     this.mCamera = null;
     this.msquare1 = null;
@@ -54,10 +56,12 @@ function PlayGame() {
     
     
     this.mMsg = null;
-    this.mCaption = null;
+    this.mCaptionA = null;
+    this.mCaptionB = null;
+    this.mCaptionC = null;
     this.mIsFollow = true;
     this.IsMove = true;
-    this.mPauseTime = 2;     // The time the user can pause to see the whole scene
+    this.mPauseTime = 3;     // The times the user can pause to see the whole scene
 }
 
 gEngine.Core.inheritPrototype(PlayGame, Scene);
@@ -68,6 +72,8 @@ PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kBg);
     gEngine.Textures.loadTexture(this.kBgNormal);
     gEngine.Textures.loadTexture(this.kCaption1);
+    gEngine.Textures.loadTexture(this.kCaption2);
+    gEngine.Textures.loadTexture(this.kCaption3);
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
 
@@ -188,9 +194,9 @@ PlayGame.prototype.initialize = function () {
     this.BboxSet.addToSet(sq8Bbox);
     
     this.mMsg = new FontRenderable("Status Message");
-    this.mMsg.setColor([1, 0, 0, 1]);
-    this.mMsg.getXform().setPosition(5, 5);
-    this.mMsg.setTextHeight(3);
+    this.mMsg.setColor([0, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(84, 2);
+    this.mMsg.setTextHeight(2);
      
     // 光效
     this._initializeLights(this.mHero.getXform().getPosition());
@@ -224,7 +230,10 @@ PlayGame.prototype.initialize = function () {
      this.mItem4BBox = this.mItem4.getBBox();
      this.mItem5BBox = this.mItem5.getBBox();
      
-     this.mCaption = new Caption(this.kCaption1);
+     this.mCaptionA = new Caption(this.kCaption1);
+     this.mCaptionB = new Caption(this.kCaption2);
+     this.mCaptionC = new Caption(this.kCaption3);
+
 };
 
 PlayGame.prototype._createALight = function (type, pos, dir, color, n, f, inner, outer, intensity, dropOff) {
@@ -322,8 +331,12 @@ PlayGame.prototype.draw = function () {
     this.mItem4.draw(this.mCamera);
     this.mItem5.draw(this.mCamera);
     
+    this.mCaptionA.draw(this.mCamera);
+    this.mCaptionB.draw(this.mCamera);
+    this.mCaptionC.draw(this.mCamera);
     this.mMsg.draw(this.mCamera);
-    this.mCaption.draw(this.mCamera);
+
+
     
 };
 
@@ -341,7 +354,7 @@ PlayGame.prototype.judgeArea = function(posX, posY, radius) {
 PlayGame.prototype.switchCamera = function(toBig) {
     
     // from small to big
-    if ((toBig == true) && (this.mCamera.getWCWidth() != 100)) {
+    if ((toBig == true) && (this.mCamera.getWCWidth() < 40)) {
         // camera don't follow the hero
         this.mIsFollow = false;
         this.mCamera.setWCCenter(50,50);
@@ -349,7 +362,7 @@ PlayGame.prototype.switchCamera = function(toBig) {
            this.mCamera.setWCWidth(100);
         }
     // from big to small
-    } else if ((toBig == false) && (this.mCamera.getWCWidth() == 100)) {
+    } else if ((toBig == false) && (this.mCamera.getWCWidth() > 80)) {
         this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
         this.mCamera.setWCWidth(15);
         // camera start following the hero
@@ -361,20 +374,12 @@ PlayGame.prototype.update = function () {
     this.mCamera.update();
     this.mHero.update();
     //this.mBg.update();
-    this.mMsg.setText(this.kDelta);
+    
+    
+//    this.mMsg.setText(this.kDelta);
 
     var v = this.mGlobalLightSet.getLightAt(0).getColor();
     
-    
-//    if (this.mCaption.mCaption1.getXform().getHeight() === 0 ) {
-//        this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
-//        this.mCamera.setWCWidth(15);
-//    } else {
-//        this.mCamera.setWCCenter(50,50);
-//        if (this.mCamera.getWCWidth() <= 95) {
-//           this.mCamera.setWCWidth(this.mCamera.getWCWidth()+5);
-//        }
-//    }
     
     var xform = this.mHero.getXform();
     if (this.IsMove == true) {
@@ -556,31 +561,81 @@ PlayGame.prototype.update = function () {
     }
     
     
-    // the update of mCaption
-    this.mCaption.update();
-    if (this.judgeArea(50, 70, 5) && (this.mCaption.isRead == false) ) {
-        this.mCaption.mCaption1.getXform().setSize(100,100);
-        this.mCaption.isRead = true;
-    }  
     
     
     // press C to follow
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.C)) {
-//             gEngine.GameLoop.stop();   
-        this.switchCamera(false); 
-        this.IsMove = true;
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) { 
+        if (this.mCamera.getWCWidth() == 100) {
+            this.switchCamera(false); 
+            this.IsMove = true;
+            this.mMsg.setText("");
+        }
     }
     
     // press V to pause
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V) && this.mPauseTime >= 0) {
-        this.mPauseTime = this.mPauseTime -1;
-//             gEngine.GameLoop.stop();   
-        this.switchCamera(true); 
-        this.IsMove = false;
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V) && (this.mPauseTime > 0)) {
+        if (this.mCamera.getWCWidth() < 90 ) {
+            this.mPauseTime = this.mPauseTime -1;  
+            this.mMsg.setText("Rest time: "+this.mPauseTime);
+            this.switchCamera(true); 
+            this.IsMove = false;
+        }
     }
     
+    // follow the camera or not 
     if (this.mIsFollow == true) {
         this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());
     }
+    
+    
+    // For the Caption A
+    if (this.judgeArea(54, 66, 5) && (this.mCaptionA.isRead == false)) {
+        this.mCaptionA.mCaption1.getXform().setSize(100,100);
+        this.switchCamera(true);
+        this.IsMove = false;
+        this.mCaptionA.isRead = true;
+    }
+      
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionA.isRead == true)) {
+        this.mCaptionA.mCaption1.getXform().setSize(0, 0);     
+        this.switchCamera(false); 
+        this.IsMove = true; 
+    }
+    
+    // For the Caption B
+    if (this.judgeArea(54, 35, 5) && (this.mCaptionB.isRead == false)) {
+        this.mCaptionB.mCaption1.getXform().setSize(100,100);
+        this.switchCamera(true);    
+        this.IsMove = false;
+        this.mCaptionB.isRead = true;
+    }
+        
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionB.isRead == true)) {
+        this.mCaptionB.mCaption1.getXform().setSize(0, 0);     
+        this.switchCamera(false); 
+        this.IsMove = true; 
+    }
+    
+    // For the Caption C
+    if (this.judgeArea(95, 35, 5) && (this.mCaptionC.isRead == false)) {
+        this.mCaptionC.mCaption1.getXform().setSize(100,100);
+        this.switchCamera(true);    
+        this.IsMove = false;
+        this.mCaptionC.isRead = true;
+    }
+        
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionC.isRead == true)) {
+        this.mCaptionC.mCaption1.getXform().setSize(0, 0);     
+        this.switchCamera(false); 
+        this.IsMove = true; 
+    }
+    
+    
+//   // This is used to show the current mouse position.
+//    var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
+//        this.mMsg.setText(msg); 
     
 };
