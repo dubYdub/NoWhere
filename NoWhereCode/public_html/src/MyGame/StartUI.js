@@ -54,7 +54,7 @@ StartUI.prototype.initialize = function () {
 //  
 //    // logo2
     this.mLogo = new TextureRenderable(this.kLogo1);
-    this.mLogo.getXform().setPosition(50,35);
+    this.mLogo.getXform().setPosition(50,39);
     this.mLogo.getXform().setSize(100,100);
     
 //    // the message on the screen
@@ -100,13 +100,11 @@ StartUI.prototype.update = function () {
         this.mNextScene = "MainPage";
         gEngine.GameLoop.stop();
     }
-    
-    var msg = "";
-    
+
+    // Judge which button the user has clicked.
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-        msg += "[L Down]"; 
+
         // jump to the corresponding page when click the button.
-        
         // Button 1: Play the game
         if (this.updateButton(469, 364, 96) == 1) {
             this.mNextScene = "PlayGame";
@@ -127,8 +125,17 @@ StartUI.prototype.update = function () {
         
     }
 
+    // Display the location and button information
+    if (this.updateButton(469, 364, 96) == 1) {
+        this.mMsg.setText("  Play");
+    } else if (this.updateButton(122, 247, 80) == 1) {
+        this.mMsg.setText("  Rule");
+    } else if (this.updateButton(413, 102, 50) == 1) {
+        this.mMsg.setText("  Authors");
+    } else {
+        var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
+        this.mMsg.setText(msg);
+    }
 
     
-    msg += " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
-    this.mMsg.setText(msg);
 };
