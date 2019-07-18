@@ -13,7 +13,7 @@
 
 function PlayGame2() {    
     // The camera to view the scene
-    this.logo1 = "assets/wall.png"
+    this.logo1 = "assets//Map2Clues/black.png"
     this.heroLogo = "assets/Map2Clues/blue.png"
     this.logo_item = "assets/Map2Clues/item-yellow.png"
     this.logo_clue = "assets/Map2Clues/clue-yellow.png"
