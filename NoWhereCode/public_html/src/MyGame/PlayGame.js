@@ -62,6 +62,7 @@ function PlayGame() {
     this.mIsFollow = true;
     this.IsMove = true;
     this.mPauseTime = 3;     // The times the user can pause to see the whole scene
+    this.nextScene = "";
 }
 
 gEngine.Core.inheritPrototype(PlayGame, Scene);
@@ -78,13 +79,17 @@ PlayGame.prototype.loadScene = function () {
 };
 
 PlayGame.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(this.logo1);
-    gEngine.Textures.unloadTexture(this.kBg);
-    gEngine.Textures.unloadTexture(this.kBgNormal);
+//    gEngine.Textures.unloadTexture(this.logo1);
+//    gEngine.Textures.unloadTexture(this.kBg);
+//    gEngine.Textures.unloadTexture(this.kBgNormal);
 //    gEngine.Textures.unloadTexture(this.Caption1);
 
     //    gEngine.Textures.unloadTexture(this.kLogo);
-    gEngine.Core.startScene(new StartUI());
+    if (this.nextScene === "Map2") {
+        gEngine.Core.startScene(new Map2());
+    } else {
+        gEngine.Core.startScene(new StartUI());
+    }
 
 };
 
@@ -633,9 +638,20 @@ PlayGame.prototype.update = function () {
         this.IsMove = true; 
     }
     
+    // if meet the entrance
+    if (this.judgeArea(84, 98, 5) ) {
+        if ( (this.mCaptionA.isRead) && (this.mCaptionB.isRead) && (this.mCaptionC.isRead)) {
+            this.nextScene = "Map2";
+            gEngine.GameLoop.stop();   
+        } else {
+            this.mMsg.setText("Haven't collect all clues"); 
+        }
+        
+    }
+    
     
 //   // This is used to show the current mouse position.
 //    var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
 //        this.mMsg.setText(msg); 
-    
+        
 };
