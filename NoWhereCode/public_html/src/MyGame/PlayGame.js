@@ -17,9 +17,12 @@ function PlayGame() {
     this.kBg = "assets/bg.png";
 
     this.kBgNormal = "assets/bg_normal.png";
-    this.kCaption1 = "assets/clue1.png";
-    this.kCaption2 = "assets/clue2.png";
-    this.kCaption3 = "assets/clue3.png";
+    this.kCaption1 = "assets/Map1Clues/openWords.png";
+    this.kCaption2 = "assets/Map1Clues/clue1.png";
+    this.kCaption3 = "assets/Map1Clues/clue2.png";
+    this.kCaption4 = "assets/Map1Clues/clue3.png";
+    this.kCaption5 = "assets/Map1Clues/clue4.png";
+    this.kCaption6 = "assets/Map1Clues/endWords.png";
     
     this.mCamera = null;
     this.msquare1 = null;
@@ -56,13 +59,22 @@ function PlayGame() {
     
     
     this.mMsg = null;
+    this.mPositionMsg = null;
+    this.mStartCaption = null;
+    this.mEndCaption = null;
+    this.mStartTimer = 120;
     this.mCaptionA = null;
     this.mCaptionB = null;
     this.mCaptionC = null;
+    this.mCaptionD = null;
     this.mIsFollow = true;
     this.IsMove = true;
-    this.mPauseTime = 3;     // The times the user can pause to see the whole scene
     this.nextScene = "";
+    
+    this.mBlackScene = null;
+    this.mHeroPoint = null;
+    
+    
 }
 
 gEngine.Core.inheritPrototype(PlayGame, Scene);
@@ -75,6 +87,9 @@ PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kCaption1);
     gEngine.Textures.loadTexture(this.kCaption2);
     gEngine.Textures.loadTexture(this.kCaption3);
+    gEngine.Textures.loadTexture(this.kCaption4);
+    gEngine.Textures.loadTexture(this.kCaption5);
+    gEngine.Textures.loadTexture(this.kCaption6);
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
 
@@ -97,7 +112,7 @@ PlayGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
         vec2.fromValues(50, 50), // position of the camera
-        15,                     // width of camera
+        35,                     // width of camera
         [0, 0, 630, 630]         // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([1,0.98,0.85,1]);   
@@ -198,10 +213,15 @@ PlayGame.prototype.initialize = function () {
     this.BboxSet.addToSet(sq7Bbox);
     this.BboxSet.addToSet(sq8Bbox);
     
-    this.mMsg = new FontRenderable("Status Message");
-    this.mMsg.setColor([0, 1, 1, 1]);
-    this.mMsg.getXform().setPosition(84, 2);
+    this.mMsg = new FontRenderable("");
+    this.mMsg.setColor([1, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(75, 2);
     this.mMsg.setTextHeight(2);
+    
+    this.mPositionMsg = new FontRenderable("");
+    this.mPositionMsg.setColor([1, 1, 1, 1]);
+    this.mPositionMsg.getXform().setPosition(0, 0);
+    this.mPositionMsg.setTextHeight(4);
      
     // 光效
     this._initializeLights(this.mHero.getXform().getPosition());
@@ -235,9 +255,25 @@ PlayGame.prototype.initialize = function () {
      this.mItem4BBox = this.mItem4.getBBox();
      this.mItem5BBox = this.mItem5.getBBox();
      
-     this.mCaptionA = new Caption(this.kCaption1);
-     this.mCaptionB = new Caption(this.kCaption2);
-     this.mCaptionC = new Caption(this.kCaption3);
+     this.mStartCaption = new Caption(this.kCaption1);
+     this.mCaptionA = new Caption(this.kCaption2);
+     this.mCaptionB = new Caption(this.kCaption3);
+     this.mCaptionC = new Caption(this.kCaption4);
+     this.mCaptionD = new Caption(this.kCaption5);
+     this.mEndCaption = new Caption(this.kCaption6);
+     
+     // For the function of key "v"
+     this.mBlackScene = new Renderable();
+     this.mBlackScene.setColor([0,0,,1]);
+     this.mBlackScene.getXform().setPosition(50, 50);
+     this.mBlackScene.getXform().setSize(0,0);
+     
+     this.mHeroPoint = new Renderable();
+     this.mHeroPoint.setColor([0.14, 0.66, 0.88, 1]);
+     this.mHeroPoint.getXform().setPosition(50, 50);
+     this.mHeroPoint.getXform().setRotationInRad(0.78); // In Radians
+     this.mHeroPoint.getXform().setSize(0,0);
+     
 
 };
 
@@ -336,12 +372,17 @@ PlayGame.prototype.draw = function () {
     this.mItem4.draw(this.mCamera);
     this.mItem5.draw(this.mCamera);
     
+    this.mStartCaption.draw(this.mCamera);
     this.mCaptionA.draw(this.mCamera);
     this.mCaptionB.draw(this.mCamera);
     this.mCaptionC.draw(this.mCamera);
+    this.mCaptionD.draw(this.mCamera);
+    this.mEndCaption.draw(this.mCamera);    
+    this.mBlackScene.draw(this.mCamera);
+    this.mHeroPoint.draw(this.mCamera);
+    
     this.mMsg.draw(this.mCamera);
-
-
+    this.mPositionMsg.draw(this.mCamera);
     
 };
 
@@ -369,7 +410,7 @@ PlayGame.prototype.switchCamera = function(toBig) {
     // from big to small
     } else if ((toBig == false) && (this.mCamera.getWCWidth() > 80)) {
         this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
-        this.mCamera.setWCWidth(15);
+        this.mCamera.setWCWidth(35);
         // camera start following the hero
         this.mIsFollow = true;
     }
@@ -568,21 +609,31 @@ PlayGame.prototype.update = function () {
     
     
     
-    // press C to follow
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.C)) { 
+    // press V to follow
+    if (gEngine.Input.isKeyReleased(gEngine.Input.keys.V)) { 
         if (this.mCamera.getWCWidth() == 100) {
             this.switchCamera(false); 
+            this.mBlackScene.getXform().setSize(0,0);
+            this.mHeroPoint.getXform().setSize(0,0);
             this.IsMove = true;
             this.mMsg.setText("");
+            this.mPositionMsg.setText("");
+
         }
     }
     
     // press V to pause
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V) && (this.mPauseTime > 0)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
         if (this.mCamera.getWCWidth() < 90 ) {
-            this.mPauseTime = this.mPauseTime -1;  
-            this.mMsg.setText("Rest time: "+this.mPauseTime);
             this.switchCamera(true); 
+            this.mBlackScene.getXform().setSize(100,100);
+            this.mHeroPoint.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());   
+            this.mHeroPoint.getXform().setSize(5,5);
+            this.mMsg.setText("- Click V to close - ");
+            this.mMsg.setTextHeight(2);
+            this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
+            this.mPositionMsg.setText("- You -");
+            this.mPositionMsg.setTextHeight(2.7);
             this.IsMove = false;
         }
     }
@@ -592,16 +643,34 @@ PlayGame.prototype.update = function () {
         this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());
     }
     
+    // For the Start Caption
+    if (this.judgeArea(5, 5, 5) && (this.mStartCaption.isRead == false)) {
+        this.mStartCaption.mCaption1.getXform().setSize(100,100);
+        this.switchCamera(true);
+        this.IsMove = false;
+        this.mStartCaption.isRead = true;
+    }
+    
+    if ((this.mStartTimer > 0) && (this.mStartCaption.isRead == true)) {
+        this.mStartTimer --;
+        if (this.mStartTimer == 0) {
+            this.mStartCaption.mCaption1.getXform().setSize(0, 0);     
+            this.switchCamera(false); 
+            this.IsMove = true; 
+        }
+    }
     
     // For the Caption A
-    if (this.judgeArea(54, 66, 5) && (this.mCaptionA.isRead == false)) {
+    if (this.judgeArea(5.39, 34.74, 4) && (this.mCaptionA.isRead == false)) {
         this.mCaptionA.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);
         this.IsMove = false;
         this.mCaptionA.isRead = true;
+        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.setTextHeight(2);
+
     }
-      
-    
+ 
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionA.isRead == true)) {
         this.mCaptionA.mCaption1.getXform().setSize(0, 0);     
         this.switchCamera(false); 
@@ -609,11 +678,13 @@ PlayGame.prototype.update = function () {
     }
     
     // For the Caption B
-    if (this.judgeArea(54, 35, 5) && (this.mCaptionB.isRead == false)) {
+    if (this.judgeArea(54, 66, 5) && (this.mCaptionB.isRead == false)) {
         this.mCaptionB.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionB.isRead = true;
+        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.setTextHeight(2);
     }
         
     
@@ -624,11 +695,13 @@ PlayGame.prototype.update = function () {
     }
     
     // For the Caption C
-    if (this.judgeArea(95, 35, 5) && (this.mCaptionC.isRead == false)) {
-        this.mCaptionC.mCaption1.getXform().setSize(100,100);
+    if (this.judgeArea(54, 95, 5) && (this.mCaptionC.isRead == false)) {
+        this.mCaptionC.mCaption1.getXform().setSize(120,120);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionC.isRead = true;
+        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.setTextHeight(2);
     }
         
     
@@ -638,18 +711,45 @@ PlayGame.prototype.update = function () {
         this.IsMove = true; 
     }
     
-    // if meet the entrance
-    if (this.judgeArea(84, 98, 5) ) {
-        if ( (this.mCaptionA.isRead) && (this.mCaptionB.isRead) && (this.mCaptionC.isRead)) {
-            this.nextScene = "Map2";
-            gEngine.GameLoop.stop();   
-        } else {
-            this.mMsg.setText("Haven't collect all clues"); 
-        }
+    // For the Caption D
+    if (this.judgeArea(84.7, 98, 5) && (this.mCaptionD.isRead == false)) {
+        this.mCaptionD.mCaption1.getXform().setSize(100,100);
+        this.switchCamera(true);    
+        this.IsMove = false;
+        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.setTextHeight(2);
+    }
         
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionD.isRead == true)) {
+        this.mCaptionD.mCaption1.getXform().setSize(0, 0);     
+        this.switchCamera(false); 
+        this.IsMove = true; 
     }
     
     
+    // if meet the entrance
+    if (this.judgeArea(95.5, 35.5, 5) && (this.mEndCaption.isRead == false)) {
+        if ( (this.mCaptionB.isRead) && (this.mCaptionC.isRead) && (this.mCaptionD.isRead)) {
+            this.mEndCaption.mCaption1.getXform().setSize(100,100);
+            this.switchCamera(true);    
+            this.IsMove = false;
+            this.mEndCaption.isRead = true;
+        // if haven't collected all of clues
+        } else {
+            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-10, this.mHero.getXform().getYPos());
+            this.mMsg.setText("NoWhere"); 
+        }    
+    }
+   
+   
+   // When this level is finished
+   if (this.mEndCaption.isRead && gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter)) {
+       this.nextScene = "Map2";
+       gEngine.GameLoop.stop();
+   }
+   
+   
 //   // This is used to show the current mouse position.
 //    var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
 //        this.mMsg.setText(msg); 
