@@ -13,9 +13,11 @@
 
 function PlayGame() {    
     // The camera to view the scene
-    this.logo1 = "assets/logo1.png"
+    this.logo1 = "assets/Map1Clues/empty-color.png"
     this.kBg = "assets/bg.png";
-
+    this.logo_clue = "assets/Map1Clues/clue-blue.png";
+    this.logo_item = "assets/Map1Clues/item-blue.png";
+    
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map1Clues/openWords.png";
     this.kCaption2 = "assets/Map1Clues/clue1.png";
@@ -41,6 +43,11 @@ function PlayGame() {
     this.mItem4 = null;
     this.mItem5 = null; //瞬移
     
+    this.mItem6 = null;
+    this.mItem7 = null;
+    this.mItem8 = null;
+    
+    
     this.BboxSet = null;
     
     this.mItem1BBox = null;
@@ -48,6 +55,9 @@ function PlayGame() {
     this.mItem3BBox = null;
     this.mItem4BBox = null;
     this.mItem5BBox = null;
+    this.mItem6BBox = null;
+    this.mItem7BBox = null;
+    this.mItem8BBox = null;
     
     this.heroLight = null;
     this.heroCamera = null;
@@ -83,6 +93,8 @@ gEngine.Core.inheritPrototype(PlayGame, Scene);
 PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.logo1);
     gEngine.Textures.loadTexture(this.kBg);
+    gEngine.Textures.loadTexture(this.logo_clue);
+    gEngine.Textures.loadTexture(this.logo_item);
     gEngine.Textures.loadTexture(this.kBgNormal);
     gEngine.Textures.loadTexture(this.kCaption1);
     gEngine.Textures.loadTexture(this.kCaption2);
@@ -101,7 +113,7 @@ PlayGame.prototype.unloadScene = function () {
 
     //    gEngine.Textures.unloadTexture(this.kLogo);
     if (this.nextScene === "Map2") {
-        gEngine.Core.startScene(new Map2());
+        gEngine.Core.startScene(new PlayGame2());
     } else {
         gEngine.Core.startScene(new StartUI());
     }
@@ -174,25 +186,37 @@ PlayGame.prototype.initialize = function () {
     this.mHero = new Hero(this.logo1);
     
     //道具1
-    this.mItem1 = new Item(this.logo1);
+    this.mItem1 = new Item(this.logo_item);
     this.mItem1.getXform().setXPos(35);
     this.mItem1.getXform().setYPos(35);
     
-    this.mItem2 = new Item(this.logo1);
+    this.mItem2 = new Item(this.logo_item);
     this.mItem2.getXform().setXPos(45);
     this.mItem2.getXform().setYPos(35);
     
-    this.mItem3 = new Item(this.logo1);
+    this.mItem3 = new Item(this.logo_item);
     this.mItem3.getXform().setXPos(55);
     this.mItem3.getXform().setYPos(35);
     
-    this.mItem4 = new Item(this.logo1);
+    this.mItem4 = new Item(this.logo_item);
     this.mItem4.getXform().setXPos(65);
     this.mItem4.getXform().setYPos(35);
     
-    this.mItem5 = new Item(this.logo1);
+    this.mItem5 = new Item(this.logo_item);
     this.mItem5.getXform().setXPos(75);
     this.mItem5.getXform().setYPos(35);
+    
+    this.mItem6 = new Item(this.logo_clue);
+    this.mItem6.getXform().setXPos(55);
+    this.mItem6.getXform().setYPos(65);
+    
+    this.mItem7 = new Item(this.logo_clue);
+    this.mItem7.getXform().setXPos(55);
+    this.mItem7.getXform().setYPos(95);
+    
+    this.mItem8 = new Item(this.logo_clue);
+    this.mItem8.getXform().setXPos(85);
+    this.mItem8.getXform().setYPos(95);
     
     var sq1Bbox = this.msquare1.getBBox();
     var sq2Bbox = this.msquare2.getBBox();
@@ -232,7 +256,7 @@ PlayGame.prototype.initialize = function () {
     bgR.getXform().setPosition(50, 50);
     //bgR.getMaterial().setSpecular([1, 0, 0, 1]);
     var i;
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 2; i++) {
         bgR.addLight(this.mGlobalLightSet.getLightAt(i));   // all the lights
     }
     this.mBg = new GameObject(bgR);  
@@ -254,6 +278,9 @@ PlayGame.prototype.initialize = function () {
      this.mItem3BBox = this.mItem3.getBBox();
      this.mItem4BBox = this.mItem4.getBBox();
      this.mItem5BBox = this.mItem5.getBBox();
+     this.mItem6BBox = this.mItem6.getBBox();
+     this.mItem7BBox = this.mItem7.getBBox();
+     this.mItem8BBox = this.mItem8.getBBox();
      
      this.mStartCaption = new Caption(this.kCaption1);
      this.mCaptionA = new Caption(this.kCaption2);
@@ -307,6 +334,17 @@ PlayGame.prototype._initializeLights = function (posHero) {
             0.1                 // drop off
             );
     this.mGlobalLightSet.addToSet(l);
+    
+    var p = this._createALight(Light.eLightType.ePointLight,
+            [posHero[0], posHero[1], 5],         // position
+            [0, 0, -1],          // Direction 
+            [-0.3, -0.3, -1, -0.2],  // some color
+            10, 20,               // near and far distances
+            0.1, 0.2,            // inner and outer cones
+            8,                   // intensity
+            0.1                 // drop off
+            );
+    this.mGlobalLightSet.addToSet(p);
 
 //    l = this._createALight(Light.eLightType.eDirectionalLight,
 //            [posHero[0], posHero[1], 4],           // position (not used by directional)
@@ -371,6 +409,9 @@ PlayGame.prototype.draw = function () {
     this.mItem3.draw(this.mCamera);
     this.mItem4.draw(this.mCamera);
     this.mItem5.draw(this.mCamera);
+    this.mItem6.draw(this.mCamera);
+    this.mItem7.draw(this.mCamera);
+    this.mItem8.draw(this.mCamera);
     
     this.mStartCaption.draw(this.mCamera);
     this.mCaptionA.draw(this.mCamera);
@@ -410,7 +451,7 @@ PlayGame.prototype.switchCamera = function(toBig) {
     // from big to small
     } else if ((toBig == false) && (this.mCamera.getWCWidth() > 80)) {
         this.mCamera.setWCCenter(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos()); 
-        this.mCamera.setWCWidth(35);
+        this.mCamera.setWCWidth(25);
         // camera start following the hero
         this.mIsFollow = true;
     }
@@ -453,6 +494,8 @@ PlayGame.prototype.update = function () {
             }
             this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
             this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+            this.mGlobalLightSet.getLightAt(1).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(1).setYPos(this.mHero.getXform().getYPos());
 
         }
         if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S) && this.mHero.getXform().getYPos() >= 2) {
@@ -484,6 +527,8 @@ PlayGame.prototype.update = function () {
             }
             this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
             this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+            this.mGlobalLightSet.getLightAt(1).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(1).setYPos(this.mHero.getXform().getYPos());
 
         }
         if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A) && this.mHero.getXform().getXPos() >= 2) {
@@ -515,6 +560,8 @@ PlayGame.prototype.update = function () {
             }
             this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
             this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+            this.mGlobalLightSet.getLightAt(1).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(1).setYPos(this.mHero.getXform().getYPos());
         }
         if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D) && this.mHero.getXform().getXPos() <= 98) {
             xform.incXPosBy(this.kDelta);
@@ -545,6 +592,8 @@ PlayGame.prototype.update = function () {
             }
             this.mGlobalLightSet.getLightAt(0).setXPos(this.mHero.getXform().getXPos());
             this.mGlobalLightSet.getLightAt(0).setYPos(this.mHero.getXform().getYPos());
+            this.mGlobalLightSet.getLightAt(1).setXPos(this.mHero.getXform().getXPos());
+            this.mGlobalLightSet.getLightAt(1).setYPos(this.mHero.getXform().getYPos());
         }
     }
     
@@ -554,23 +603,23 @@ PlayGame.prototype.update = function () {
     var hBbox = this.mHero.getBBox();
     if(hBbox.intersectsBound(this.mItem1BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.U)){
         this.kDelta = 0.5;
-        this.mItem1.getXform().setXPos(-1);
-        this.mItem1.getXform().setYPos(-1);
+        this.mItem1.getXform().setXPos(-100);
+        this.mItem1.getXform().setYPos(-100);
         this.mItem1BBox = this.mItem1.getBBox();
     }
     //道具二：减速
     if(hBbox.intersectsBound(this.mItem2BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.I)){
         this.kDelta = 0.1;
-        this.mItem2.getXform().setXPos(-1);
-        this.mItem2.getXform().setYPos(-1);
+        this.mItem2.getXform().setXPos(-100);
+        this.mItem2.getXform().setYPos(-100);
         this.mItem2BBox = this.mItem2.getBBox();
     }
     
     if(hBbox.intersectsBound(this.mItem3BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.O)){
         this.mGlobalLightSet.getLightAt(0).setIntensity(7);
         this.mGlobalLightSet.getLightAt(0).setFar(15);
-        this.mItem3.getXform().setXPos(-1);
-        this.mItem3.getXform().setYPos(-1);
+        this.mItem3.getXform().setXPos(-100);
+        this.mItem3.getXform().setYPos(-100);
         this.mItem3BBox = this.mItem3.getBBox();
     }
     
@@ -578,8 +627,8 @@ PlayGame.prototype.update = function () {
         this.mGlobalLightSet.getLightAt(0).setIntensity(3);
         this.mGlobalLightSet.getLightAt(0).setNear(3)
         this.mGlobalLightSet.getLightAt(0).setFar(8);
-        this.mItem4.getXform().setXPos(-1);
-        this.mItem4.getXform().setYPos(-1);
+        this.mItem4.getXform().setXPos(-100);
+        this.mItem4.getXform().setYPos(-1000);
         this.mItem4BBox = this.mItem4.getBBox();
     }
     
@@ -597,14 +646,40 @@ PlayGame.prototype.update = function () {
             this.mHero.getXform().setYPos(85);
         }
         
-        this.mItem5.getXform().setXPos(-1);
-        this.mItem5.getXform().setYPos(-1);
+        this.mItem5.getXform().setXPos(-100);
+        this.mItem5.getXform().setYPos(-100);
         this.mItem5BBox = this.mItem5.getBBox();
     }
+
+
+    if(hBbox.intersectsBound(this.mItem6BBox)){
+        this.mItem6.getXform().setXPos(-100);
+        this.mItem6.getXform().setYPos(-100);
+        this.mItem6BBox = this.mItem6.getBBox();
+    }
+    
+    if(hBbox.intersectsBound(this.mItem7BBox)){
+        this.mItem7.getXform().setXPos(-100);
+        this.mItem7.getXform().setYPos(-100);
+        this.mItem7BBox = this.mItem7.getBBox();
+    }
+    
+    if(hBbox.intersectsBound(this.mItem8BBox)){
+        this.mItem8.getXform().setXPos(-100);
+        this.mItem8.getXform().setYPos(-100);
+        this.mItem8BBox = this.mItem8.getBBox();
+    }
+
+
+
 
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         gEngine.GameLoop.stop();   
     }
+    
+    
+    
+    
     
     
     
@@ -666,6 +741,7 @@ PlayGame.prototype.update = function () {
         this.switchCamera(true);
         this.IsMove = false;
         this.mCaptionA.isRead = true;
+        this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
 
@@ -678,11 +754,12 @@ PlayGame.prototype.update = function () {
     }
     
     // For the Caption B
-    if (this.judgeArea(54, 66, 5) && (this.mCaptionB.isRead == false)) {
+    if (this.judgeArea(55, 65, 3) && (this.mCaptionB.isRead == false)) {
         this.mCaptionB.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionB.isRead = true;
+        this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
     }
@@ -695,11 +772,12 @@ PlayGame.prototype.update = function () {
     }
     
     // For the Caption C
-    if (this.judgeArea(54, 95, 5) && (this.mCaptionC.isRead == false)) {
+    if (this.judgeArea(55, 95, 3) && (this.mCaptionC.isRead == false)) {
         this.mCaptionC.mCaption1.getXform().setSize(120,120);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionC.isRead = true;
+        this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
     }
@@ -712,10 +790,12 @@ PlayGame.prototype.update = function () {
     }
     
     // For the Caption D
-    if (this.judgeArea(84.7, 98, 5) && (this.mCaptionD.isRead == false)) {
+    if (this.judgeArea(85, 95, 3) && (this.mCaptionD.isRead == false)) {
         this.mCaptionD.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
+        this.mCaptionD.isRead = true;
+        this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
     }
@@ -737,7 +817,7 @@ PlayGame.prototype.update = function () {
             this.mEndCaption.isRead = true;
         // if haven't collected all of clues
         } else {
-            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-10, this.mHero.getXform().getYPos());
+            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos());
             this.mMsg.setText("NoWhere"); 
         }    
     }
@@ -749,9 +829,10 @@ PlayGame.prototype.update = function () {
        gEngine.GameLoop.stop();
    }
    
-   
+//   
 //   // This is used to show the current mouse position.
-//    var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
-//        this.mMsg.setText(msg); 
+//    var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;
+//    this.mMsg.getXform().setPosition(50,3);    
+//    this.mMsg.setText(msg); 
         
 };
