@@ -36,7 +36,7 @@
 
     MyGame.prototype.unloadScene = function () {
         gEngine.Textures.unloadTexture(this.kLogo);
-        gEngine.Core.startScene(new PlayGame());   
+        gEngine.Core.startScene(new StartUI());   
     };
 
     MyGame.prototype.initialize = function () {
