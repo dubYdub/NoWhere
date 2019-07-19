@@ -327,7 +327,7 @@ PlayGame.prototype._initializeLights = function (posHero) {
     var l = this._createALight(Light.eLightType.ePointLight,
             [posHero[0], posHero[1], 5],         // position
             [0, 0, -1],          // Direction 
-            [1, 0, 0, 1],  // some color
+            [1, 2, 3, 1],  // some color
             8, 10,               // near and far distances
             0.1, 0.2,            // inner and outer cones
             5,                   // intensity
@@ -706,6 +706,7 @@ PlayGame.prototype.update = function () {
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
             this.mMsg.setTextHeight(2);
+            this.mMsg.getXform().setPosition(80,2);
             this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
@@ -817,9 +818,10 @@ PlayGame.prototype.update = function () {
             this.mEndCaption.isRead = true;
         // if haven't collected all of clues
         } else {
-            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos());
-            this.mMsg.setText("NoWhere"); 
-        }    
+            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-10, this.mHero.getXform().getYPos());
+            this.mMsg.setText("I forget something"); 
+            this.mMsg.setTextHeight(1.2);
+        }  
     }
    
    

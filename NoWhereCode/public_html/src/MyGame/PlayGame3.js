@@ -673,7 +673,7 @@ PlayGame3.prototype.initialize = function () {
      this.mBlackScene.getXform().setSize(0,0);
      
      this.mHeroPoint = new Renderable();
-     this.mHeroPoint.setColor([0.14, 0.66, 0.88, 1]);
+     this.mHeroPoint.setColor([1, 0.70, 0.73, 1]);
      this.mHeroPoint.getXform().setPosition(50, 50);
      this.mHeroPoint.getXform().setRotationInRad(0.78); // In Radians
      this.mHeroPoint.getXform().setSize(0,0);
@@ -704,7 +704,7 @@ PlayGame3.prototype._initializeLights = function (posHero) {
     var l = this._createALight(Light.eLightType.ePointLight,
             [posHero[0], posHero[1], 5],         // position
             [0, 0, -1],          // Direction 
-            [1.5, 1.5, 0.8, 1.6],  // some color
+            [3.7, 2.2, 2.55, 1.6],  // some color
             8, 10,               // near and far distances
             0.1, 0.2,            // inner and outer cones
             3,                   // intensity
@@ -1351,6 +1351,7 @@ PlayGame3.prototype.update = function () {
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
             this.mMsg.setTextHeight(2);
+            this.mMsg.getXform().setPosition(78,2);
             this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
@@ -1381,14 +1382,14 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption A
-    if (this.judgeArea(67.5, 25, 3) && (this.mCaptionA.isRead == false)) {
+    if (this.judgeArea(67.5, 24, 2.5) && (this.mCaptionA.isRead == false)) {
         this.mCaptionA.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);
         this.IsMove = false;
         this.mCaptionA.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
 
     }
@@ -1401,14 +1402,14 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption B
-    if (this.judgeArea(12.5, 28.75, 2) && (this.mCaptionB.isRead == false)) {
+    if (this.judgeArea(13, 28.75, 2.5) && (this.mCaptionB.isRead == false)) {
         this.mCaptionB.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionB.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
         
     }
@@ -1423,14 +1424,14 @@ PlayGame3.prototype.update = function () {
     
     
     // For the Caption C
-    if (this.judgeArea(13, 12.5, 3) && (this.mCaptionC.isRead == false)) {
+    if (this.judgeArea(13, 12.7, 2.5) && (this.mCaptionC.isRead == false)) {
         this.mCaptionC.mCaption1.getXform().setSize(120,120);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionC.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
     }
         
@@ -1443,14 +1444,14 @@ PlayGame3.prototype.update = function () {
     }
    
     // For the Caption D
-    if (this.judgeArea(48, 52, 2) && (this.mCaptionD.isRead == false)) {
+    if (this.judgeArea(48, 52, 2.5) && (this.mCaptionD.isRead == false)) {
         this.mCaptionD.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionD.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
     }
         
@@ -1463,14 +1464,14 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption E
-    if (this.judgeArea(35, 72, 3) && (this.mCaptionE.isRead == false)) {
+    if (this.judgeArea(35, 72, 2.5) && (this.mCaptionE.isRead == false)) {
         this.mCaptionE.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionE.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
     }
         
@@ -1483,7 +1484,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption F
-    if (this.judgeArea(87, 79.5, 3) && (this.mCaptionF.isRead == false)) {
+    if (this.judgeArea(87, 79.5, 2) && (this.mCaptionF.isRead == false)) {
         this.mCaptionF.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1491,7 +1492,7 @@ PlayGame3.prototype.update = function () {
 
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
 
     }
         
@@ -1504,25 +1505,32 @@ PlayGame3.prototype.update = function () {
     }
   
     // For the Caption G
-    if (this.judgeArea(67.5, 18) && (this.mCaptionG.isRead == false)) {
+    if (this.judgeArea(67.5, 18, 2.5) && (this.mCaptionG.isRead == false)) {
         this.mCaptionG.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionG.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
     }
-
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionG.isRead == true)) {
+        this.mCaptionG.mCaption1.getXform().setSize(0, 0);     
+        this.switchCamera(false); 
+        this.IsMove = true;
+        this.mMsg.setText("");
+    }
+    
     // For the Caption H
-    if (this.judgeArea(87, 7) && (this.mCaptionH.isRead == false)) {
+    if (this.judgeArea(87, 79.5, 2.5) && (this.mCaptionH.isRead == false)) {
         this.mCaptionH.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionH.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(78,2);
     }
         
     
@@ -1537,7 +1545,7 @@ PlayGame3.prototype.update = function () {
     
     
     // if meet the entrance
-    if (this.judgeArea(37.5, 52.5, 5) && (this.mEndCaption.isRead == false)) {
+    if (this.judgeArea(37.5, 52.5, 3) && (this.mEndCaption.isRead == false)) {
         if ((this.mCaptionA.isRead) && (this.mCaptionB.isRead) && (this.mCaptionC.isRead) && (this.mCaptionD.isRead) && (this.mCaptionE.isRead)
                 && (this.mCaptionF.isRead) && (this.mCaptionG.isRead)) {
             this.mEndCaption.mCaption1.getXform().setSize(100,100);
@@ -1546,8 +1554,9 @@ PlayGame3.prototype.update = function () {
             this.mEndCaption.isRead = true;
         // if haven't collected all of clues
         } else {
-            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos());
-            this.mMsg.setText("NoWhere"); 
+            this.mMsg.getXform().setPosition(this.mHero.getXform().getXPos()-10, this.mHero.getXform().getYPos());
+            this.mMsg.setText("I forget something"); 
+            this.mMsg.setTextHeight(1.2);
         }    
     }
    
