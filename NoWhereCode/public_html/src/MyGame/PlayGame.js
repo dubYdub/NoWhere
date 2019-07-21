@@ -64,7 +64,7 @@ function PlayGame() {
     this.mGlobalLightSet = null;
     this.mBg = null;
     
-    this.kDelta = 0.3;
+    this.kDelta = 0.18;
     this.deltaV = 0.1;
     
     
@@ -685,8 +685,8 @@ PlayGame.prototype.update = function () {
     
     
     // press V to follow
-    if (gEngine.Input.isKeyReleased(gEngine.Input.keys.V)) { 
-        if (this.mCamera.getWCWidth() == 100) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) { 
+        //if (this.mCamera.getWCWidth() == 100) {
             this.switchCamera(false); 
             this.mBlackScene.getXform().setSize(0,0);
             this.mHeroPoint.getXform().setSize(0,0);
@@ -694,11 +694,11 @@ PlayGame.prototype.update = function () {
             this.mMsg.setText("");
             this.mPositionMsg.setText("");
 
-        }
+        //}
     }
     
     // press V to pause
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         if (this.mCamera.getWCWidth() < 90 ) {
             this.switchCamera(true); 
             this.mBlackScene.getXform().setSize(100,100);

@@ -17,7 +17,7 @@ function PlayGame3() {
     this.heroLogo = "assets/Map3Clues/blue-yellow.png"
     this.logo_item = "assets/Map3Clues/item-red.png"
     this.logo_clue = "assets/Map3Clues/clue-red.png"
-    this.kBg = "assets/bg.png";
+    this.kBg = "assets/logo1.png";
 
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map3Clues/openWords.png";
@@ -141,7 +141,7 @@ function PlayGame3() {
     this.mGlobalLightSet = null;
     this.mBg = null;
     
-    this.kDelta = 0.3;
+    this.kDelta = 0.18;
     this.deltaV = 0.1;
     
     
@@ -379,7 +379,7 @@ PlayGame3.prototype.initialize = function () {
     this.msquare39.getXform().setSize(90, 5);
     
     this.msquare40 = new Item(this.logo1);
-    this.msquare40.getXform().setPosition(60, 26.25);
+    this.msquare40.getXform().setPosition(60, 23.75);
     this.msquare40.getXform().setSize(10, 37.5);
     
     this.msquare41 = new Item(this.logo1);
@@ -535,72 +535,72 @@ PlayGame3.prototype.initialize = function () {
     
     //道具1
     this.mItem1 = new Item(this.logo_clue);
-    this.mItem1.getXform().setXPos(67.5);
-    this.mItem1.getXform().setYPos(24);
+    this.mItem1.getXform().setXPos(68.75);
+    this.mItem1.getXform().setYPos(23.75);
     
     this.mItem2 = new Item(this.logo_clue);
-    this.mItem2.getXform().setXPos(13);
-    this.mItem2.getXform().setYPos(28);
+    this.mItem2.getXform().setXPos(13.75);
+    this.mItem2.getXform().setYPos(28.75);
     
     this.mItem3 = new Item(this.logo_clue);
-    this.mItem3.getXform().setXPos(13);
-    this.mItem3.getXform().setYPos(12.7);
+    this.mItem3.getXform().setXPos(13.75);
+    this.mItem3.getXform().setYPos(13.75);
     
     this.mItem4 = new Item(this.logo_clue);
-    this.mItem4.getXform().setXPos(48);
-    this.mItem4.getXform().setYPos(52);
+    this.mItem4.getXform().setXPos(48.75);
+    this.mItem4.getXform().setYPos(51.25);
     
     this.mItem5 = new Item(this.logo_clue);
-    this.mItem5.getXform().setXPos(35);
-    this.mItem5.getXform().setYPos(72);
+    this.mItem5.getXform().setXPos(33.75);
+    this.mItem5.getXform().setYPos(73.75);
     
     this.mItem6 = new Item(this.logo_clue);
-    this.mItem6.getXform().setXPos(87);
-    this.mItem6.getXform().setYPos(79.5);
+    this.mItem6.getXform().setXPos(88.75);
+    this.mItem6.getXform().setYPos(81.25);
     
     this.mItem7 = new Item(this.logo_clue);
-    this.mItem7.getXform().setXPos(67.5);
-    this.mItem7.getXform().setYPos(18);
+    this.mItem7.getXform().setXPos(66.25);
+    this.mItem7.getXform().setYPos(18.75);
     
     this.mItem8 = new Item(this.logo_clue);
-    this.mItem8.getXform().setXPos(87);
-    this.mItem8.getXform().setYPos(7);
+    this.mItem8.getXform().setXPos(86.25);
+    this.mItem8.getXform().setYPos(6.25);
     
     this.mItem9 = new Item(this.logo_item);
-    this.mItem9.getXform().setXPos(13);
-    this.mItem9.getXform().setYPos(84);
+    this.mItem9.getXform().setXPos(13.75);
+    this.mItem9.getXform().setYPos(83.75);
     
     this.mItem10 = new Item(this.logo_item);
-    this.mItem10.getXform().setXPos(9);
-    this.mItem10.getXform().setYPos(73);
+    this.mItem10.getXform().setXPos(11.25);
+    this.mItem10.getXform().setYPos(71.25);
     
     this.mItem11 = new Item(this.logo_item);
-    this.mItem11.getXform().setXPos(21);
-    this.mItem11.getXform().setYPos(7);
+    this.mItem11.getXform().setXPos(21.25);
+    this.mItem11.getXform().setYPos(6.25);
     
     this.mItem12 = new Item(this.logo_item);
-    this.mItem12.getXform().setXPos(48);
-    this.mItem12.getXform().setYPos(45);
+    this.mItem12.getXform().setXPos(48.75);
+    this.mItem12.getXform().setYPos(46.25);
     
     this.mItem13 = new Item(this.logo_item);
-    this.mItem13.getXform().setXPos(53);
-    this.mItem13.getXform().setYPos(35);
+    this.mItem13.getXform().setXPos(53.75);
+    this.mItem13.getXform().setYPos(36.25);
     
     this.mItem14 = new Item(this.logo_item);
-    this.mItem14.getXform().setXPos(57);
-    this.mItem14.getXform().setYPos(46.5);
+    this.mItem14.getXform().setXPos(58.75);
+    this.mItem14.getXform().setYPos(43.75);
     
     this.mItem15 = new Item(this.logo_item);
-    this.mItem15.getXform().setXPos(93);
-    this.mItem15.getXform().setYPos(17.5);
+    this.mItem15.getXform().setXPos(93.75);
+    this.mItem15.getXform().setYPos(18.75);
     
     this.mItem16 = new Item(this.logo_item);
-    this.mItem16.getXform().setXPos(82.5);
-    this.mItem16.getXform().setYPos(34.2);
+    this.mItem16.getXform().setXPos(81.25);
+    this.mItem16.getXform().setYPos(36.25);
     
     this.mItem17 = new Item(this.logo_item);
-    this.mItem17.getXform().setXPos(77);
-    this.mItem17.getXform().setYPos(80);
+    this.mItem17.getXform().setXPos(78.75);
+    this.mItem17.getXform().setYPos(78.75);
     
     this.mItem18 = new Item(this.logo_item);
     this.mItem18.getXform().setXPos(50);
@@ -1240,7 +1240,7 @@ PlayGame3.prototype.update = function () {
     }
     
     if(hBbox.intersectsBound(this.mItem9BBox)){ 
-        this.mHero.getXform().setSize(1.5, 1.5);
+        this.mHero.getXform().setSize(3, 3);
         this.mHero.getXform().setPosition(35, 55);
 //        this.mItem9.getXform().setXPos(-1);
 //        this.mItem9.getXform().setYPos(-1);
@@ -1256,16 +1256,16 @@ PlayGame3.prototype.update = function () {
     }
     
     if(hBbox.intersectsBound(this.mItem11BBox)){    
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(47.5, 59);
+        this.mHero.getXform().setSize(3, 3);
+        this.mHero.getXform().setPosition(47.5, 57.5);
 //        this.mItem11.getXform().setXPos(-1);
 //        this.mItem11.getXform().setYPos(-1);
 //        this.mItem11BBox = this.mItem11.getBBox();
     }
     
     if(hBbox.intersectsBound(this.mItem12BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(88, 72);
+        this.mHero.getXform().setSize(3, 3);
+        this.mHero.getXform().setPosition(87.5, 72.6);
 //        this.mItem12.getXform().setXPos(-1);
 //        this.mItem12.getXform().setYPos(-1);
 //        this.mItem12BBox = this.mItem12.getBBox();
@@ -1280,16 +1280,16 @@ PlayGame3.prototype.update = function () {
     }
     
     if(hBbox.intersectsBound(this.mItem14BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(82, 24);
+        this.mHero.getXform().setSize(3, 3);
+        this.mHero.getXform().setPosition(82.5, 25);
 //        this.mItem14.getXform().setXPos(-1);
 //        this.mItem14.getXform().setYPos(-1);
 //        this.mItem14BBox = this.mItem14.getBBox();
     }
     
     if(hBbox.intersectsBound(this.mItem15BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(57.5, 73);
+        this.mHero.getXform().setSize(3, 3);
+        this.mHero.getXform().setPosition(57.5, 77.5);
 //        this.mItem15.getXform().setXPos(-1);
 //        this.mItem15.getXform().setYPos(-1);
 //        this.mItem15BBox = this.mItem15.getBBox();
@@ -1297,7 +1297,7 @@ PlayGame3.prototype.update = function () {
     
     
     if(hBbox.intersectsBound(this.mItem16BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
+        this.mHero.getXform().setSize(3, 3);
         this.mHero.getXform().setPosition(52.5, 20);
 //        this.mItem16.getXform().setXPos(-1);
 //        this.mItem16.getXform().setYPos(-1);
@@ -1305,8 +1305,8 @@ PlayGame3.prototype.update = function () {
     }
     
     if(hBbox.intersectsBound(this.mItem17BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(77, 13);
+        this.mHero.getXform().setSize(3, 3);
+        this.mHero.getXform().setPosition(77.5, 12.5);
 //        this.mItem17.getXform().setXPos(-1);
 //        this.mItem17.getXform().setYPos(-1);
 //        this.mItem17BBox = this.mItem17.getBBox();
@@ -1330,8 +1330,8 @@ PlayGame3.prototype.update = function () {
     }
     
     // press V to follow
-    if (gEngine.Input.isKeyReleased(gEngine.Input.keys.V)) { 
-        if (this.mCamera.getWCWidth() == 100) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) { 
+        //if (this.mCamera.getWCWidth() == 100) {
             this.switchCamera(false); 
             this.mBlackScene.getXform().setSize(0,0);
             this.mHeroPoint.getXform().setSize(0,0);
@@ -1339,14 +1339,14 @@ PlayGame3.prototype.update = function () {
             this.mMsg.setText("");
             this.mPositionMsg.setText("");
 
-        }
+        //}
     }
     
     // press V to pause
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.V)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         if (this.mCamera.getWCWidth() < 90 ) {
             this.switchCamera(true); 
-            this.mBlackScene.getXform().setSize(100,100);
+            //this.mBlackScene.getXform().setSize(100,100);
             this.mHeroPoint.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());   
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
