@@ -14,7 +14,7 @@
 function PlayGame4() {    
     // The camera to view the scene
     this.logo1 = "assets/Map3Clues/black.png"
-    this.heroLogo = "assets/Map4Clues/player.png"
+    this.heroLogo = "assets/Map4Clues/player4.png"
     this.logo_item = "assets/Map4Clues/item-green.png"
     this.logo_clue = "assets/Map4Clues/clue-green.png"
     this.kBg = "assets/bg.png";

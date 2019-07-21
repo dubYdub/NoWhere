@@ -17,6 +17,8 @@ function PlayGame() {
     this.kBg = "assets/bg.png";
     this.logo_clue = "assets/Map1Clues/clue-blue.png";
     this.logo_item = "assets/Map1Clues/item-blue.png";
+    this.heroLogo = "assets/Map1Clues/player1.png"
+
     
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map1Clues/openWords.png";
@@ -109,6 +111,8 @@ PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kCaption4);
     gEngine.Textures.loadTexture(this.kCaption5);
     gEngine.Textures.loadTexture(this.kCaption6);
+    gEngine.Textures.loadTexture(this.heroLogo);
+
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
 
@@ -212,7 +216,7 @@ PlayGame.prototype.initialize = function () {
     this.mBsquare4.getXform().setSize(100, 50);
     this.mBsquare4.setColor([0, 0, 0, 1]);
 
-    this.mHero = new Hero(this.logo1);
+    this.mHero = new Hero(this.heroLogo);
     
     //道具1
     this.mItem1 = new Item(this.logo_item);
