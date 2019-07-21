@@ -116,6 +116,8 @@ function PlayGame2() {
     
     this.mMsg = null;
     this.mPositionMsg = null;
+    this.mClueMsg = null;
+    this.mClueNum = 7;
     this.mStartCaption = null;
     this.mEndCaption = null;
     this.mStartTimer = 120;
@@ -456,7 +458,6 @@ PlayGame2.prototype.initialize = function () {
     this.mItem12.getXform().setXPos(73.5);
     this.mItem12.getXform().setYPos(45);
     
- 
     
     this.mMsg = new FontRenderable("");
     this.mMsg.setColor([1, 1, 1, 1]);
@@ -467,6 +468,11 @@ PlayGame2.prototype.initialize = function () {
     this.mPositionMsg.setColor([1, 1, 1, 1]);
     this.mPositionMsg.getXform().setPosition(0, 0);
     this.mPositionMsg.setTextHeight(4);
+    
+    this.mClueMsg = new FontRenderable("");
+    this.mClueMsg.setColor([0.97, 0.952, 0.8196, 1]);
+    this.mClueMsg.getXform().setPosition(75, 75);
+    this.mClueMsg.setTextHeight(3);
      
     // 光效
     this._initializeLights(this.mHero.getXform().getPosition());
@@ -653,6 +659,8 @@ PlayGame2.prototype.draw = function () {
     
     this.mMsg.draw(this.mCamera);
     this.mPositionMsg.draw(this.mCamera);
+    this.mClueMsg.draw(this.mCamera);
+
     
 };
 
@@ -1011,6 +1019,7 @@ PlayGame2.prototype.update = function () {
             this.mBlackScene.getXform().setSize(0,0);
             this.mHeroPoint.getXform().setSize(0,0);
             this.IsMove = true;
+            this.mClueMsg.setText("");
             this.mMsg.setText("");
             this.mPositionMsg.setText("");
 
@@ -1025,11 +1034,15 @@ PlayGame2.prototype.update = function () {
             this.mHeroPoint.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());   
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
-            this.mMsg.getXform().setPosition(80,2);
             this.mMsg.setTextHeight(2);
+            this.mMsg.getXform().setPosition(75,2);
             this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
+            this.mClueMsg.setText("Lost memories:" + this.mClueNum);
+            this.mClueMsg.setTextHeight(2.5);
+            this.mClueMsg.getXform().setPosition(75, 95);
+            
             this.IsMove = false;
         }
     }
@@ -1057,14 +1070,16 @@ PlayGame2.prototype.update = function () {
     }
     
     // For the Caption A
-    if (this.judgeArea(87.5, 5, 3) && (this.mCaptionA.isRead == false)) {
+    if (this.judgeArea(87.5, 5, 2.5) && (this.mCaptionA.isRead == false)) {
         this.mCaptionA.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);
         this.IsMove = false;
         this.mCaptionA.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(75,2);
+        
+        this.mClueNum --;
 
 
     }
@@ -1084,8 +1099,8 @@ PlayGame2.prototype.update = function () {
         this.mCaptionB.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
-
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
         
     }
         
@@ -1106,8 +1121,8 @@ PlayGame2.prototype.update = function () {
         this.mCaptionC.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
-
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
     }
         
     
@@ -1126,8 +1141,8 @@ PlayGame2.prototype.update = function () {
         this.mCaptionD.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
-
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
     }
         
     
@@ -1146,8 +1161,8 @@ PlayGame2.prototype.update = function () {
         this.mCaptionE.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
-
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
     }
         
     
@@ -1167,8 +1182,8 @@ PlayGame2.prototype.update = function () {
 
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
-
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
     }
         
     
@@ -1187,7 +1202,8 @@ PlayGame2.prototype.update = function () {
         this.mCaptionG.isRead = true;
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
-        this.mMsg.getXform().setPosition(80,2);
+        this.mMsg.getXform().setPosition(75,2);
+        this.mClueNum --;
     }
         
     

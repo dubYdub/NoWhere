@@ -153,6 +153,8 @@ function PlayGame3() {
     
     this.mMsg = null;
     this.mPositionMsg = null;
+    this.mClueMsg = null;
+    this.mClueNum = 8;
     this.mStartCaption = null;
     this.mEndCaption = null;
     this.mStartTimer = 120;
@@ -643,6 +645,11 @@ PlayGame3.prototype.initialize = function () {
     this.mPositionMsg.setColor([1, 1, 1, 1]);
     this.mPositionMsg.getXform().setPosition(0, 0);
     this.mPositionMsg.setTextHeight(4);
+
+    this.mClueMsg = new FontRenderable("");
+    this.mClueMsg.setColor([0.97, 0.952, 0.8196, 1]);
+    this.mClueMsg.getXform().setPosition(75, 75);
+    this.mClueMsg.setTextHeight(3);
      
     // 光效
     this._initializeLights(this.mHero.getXform().getPosition());
@@ -866,6 +873,8 @@ PlayGame3.prototype.draw = function () {
     
     this.mMsg.draw(this.mCamera);
     this.mPositionMsg.draw(this.mCamera);
+    this.mClueMsg.draw(this.mCamera);
+
     
 };
 
@@ -1365,6 +1374,7 @@ PlayGame3.prototype.update = function () {
             this.mBlackScene.getXform().setSize(0,0);
             this.mHeroPoint.getXform().setSize(0,0);
             this.IsMove = true;
+            this.mClueMsg.setText("");
             this.mMsg.setText("");
             this.mPositionMsg.setText("");
 
@@ -1375,15 +1385,19 @@ PlayGame3.prototype.update = function () {
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) {
         if (this.mCamera.getWCWidth() < 90 ) {
             this.switchCamera(true); 
-            //this.mBlackScene.getXform().setSize(100,100);
+            this.mBlackScene.getXform().setSize(100,100);
             this.mHeroPoint.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos());   
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
             this.mMsg.setTextHeight(2);
-            this.mMsg.getXform().setPosition(78,2);
+            this.mMsg.getXform().setPosition(75,2);
             this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
+            this.mClueMsg.setText("Lost memories:" + this.mClueNum);
+            this.mClueMsg.setTextHeight(2.5);
+            this.mClueMsg.getXform().setPosition(75, 95);
+            
             this.IsMove = false;
         }
     }
@@ -1419,7 +1433,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
 
     }
  
@@ -1439,7 +1453,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
         
     }
         
@@ -1461,7 +1475,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
     }
         
     
@@ -1481,7 +1495,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
     }
         
     
@@ -1501,7 +1515,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
     }
         
     
@@ -1522,7 +1536,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
-
+        this.mClueNum --;
     }
         
     
@@ -1542,6 +1556,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
+        this.mClueNum --;
     }
     
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionG.isRead == true)) {
@@ -1560,6 +1575,7 @@ PlayGame3.prototype.update = function () {
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
         this.mMsg.getXform().setPosition(78,2);
+        this.mClueNum --;
     }
         
     

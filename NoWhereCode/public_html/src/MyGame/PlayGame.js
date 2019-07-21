@@ -76,6 +76,8 @@ function PlayGame() {
     
     this.mMsg = null;
     this.mPositionMsg = null;
+    this.mClueMsg = null;
+    this.mClueNum = 4;
     this.mStartCaption = null;
     this.mEndCaption = null;
     this.mStartTimer = 120;
@@ -86,7 +88,6 @@ function PlayGame() {
     this.mIsFollow = true;
     this.IsMove = true;
     this.nextScene = "";
-    
     this.mBlackScene = null;
     this.mHeroPoint = null;
     
@@ -272,6 +273,11 @@ PlayGame.prototype.initialize = function () {
     this.mPositionMsg.setColor([1, 1, 1, 1]);
     this.mPositionMsg.getXform().setPosition(0, 0);
     this.mPositionMsg.setTextHeight(4);
+
+    this.mClueMsg = new FontRenderable("");
+    this.mClueMsg.setColor([0.97, 0.952, 0.8196, 1]);
+    this.mClueMsg.getXform().setPosition(75, 75);
+    this.mClueMsg.setTextHeight(3);
      
     // 光效
     this._initializeLights(this.mHero.getXform().getPosition());
@@ -455,6 +461,7 @@ PlayGame.prototype.draw = function () {
     
     this.mMsg.draw(this.mCamera);
     this.mPositionMsg.draw(this.mCamera);
+    this.mClueMsg.draw(this.mCamera);
     
 };
 
@@ -722,6 +729,7 @@ PlayGame.prototype.update = function () {
             this.mBlackScene.getXform().setSize(0,0);
             this.mHeroPoint.getXform().setSize(0,0);
             this.IsMove = true;
+            this.mClueMsg.setText("");
             this.mMsg.setText("");
             this.mPositionMsg.setText("");
 
@@ -737,10 +745,14 @@ PlayGame.prototype.update = function () {
             this.mHeroPoint.getXform().setSize(5,5);
             this.mMsg.setText("- Click V to close - ");
             this.mMsg.setTextHeight(2);
-            this.mMsg.getXform().setPosition(80,2);
+            this.mMsg.getXform().setPosition(75,2);
             this.mPositionMsg.getXform().setPosition(this.mHero.getXform().getXPos()-5, this.mHero.getXform().getYPos()+0.8);
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
+            this.mClueMsg.setText("Lost memories:" + this.mClueNum);
+            this.mClueMsg.setTextHeight(2.5);
+            this.mClueMsg.getXform().setPosition(75, 95);
+            
             this.IsMove = false;
         }
     }
@@ -773,6 +785,7 @@ PlayGame.prototype.update = function () {
         this.switchCamera(true);
         this.IsMove = false;
         this.mCaptionA.isRead = true;
+        this.mClueNum --;
         this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
@@ -791,6 +804,7 @@ PlayGame.prototype.update = function () {
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionB.isRead = true;
+        this.mClueNum--;
         this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
@@ -809,6 +823,7 @@ PlayGame.prototype.update = function () {
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionC.isRead = true;
+        this.mClueNum--;
         this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
@@ -827,6 +842,7 @@ PlayGame.prototype.update = function () {
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionD.isRead = true;
+        this.mClueNum--;
         this.mMsg.getXform().setPosition(75, 2);
         this.mMsg.setText("- Click B to close - ");
         this.mMsg.setTextHeight(2);
