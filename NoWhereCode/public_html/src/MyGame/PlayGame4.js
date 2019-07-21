@@ -543,20 +543,20 @@ PlayGame4.prototype.initialize = function () {
     
     //道具1
     this.mItem1 = new Item(this.logo_clue);
-    this.mItem1.getXform().setXPos(67.5);
-    this.mItem1.getXform().setYPos(24);
+    this.mItem1.getXform().setXPos(17.5);
+    this.mItem1.getXform().setYPos(42.5);
     
     this.mItem2 = new Item(this.logo_clue);
-    this.mItem2.getXform().setXPos(13);
-    this.mItem2.getXform().setYPos(28);
+    this.mItem2.getXform().setXPos(7.5);
+    this.mItem2.getXform().setYPos(7.5);
     
     this.mItem3 = new Item(this.logo_clue);
-    this.mItem3.getXform().setXPos(13);
-    this.mItem3.getXform().setYPos(12.7);
+    this.mItem3.getXform().setXPos(65);
+    this.mItem3.getXform().setYPos(7.5);
     
     this.mItem4 = new Item(this.logo_clue);
-    this.mItem4.getXform().setXPos(48);
-    this.mItem4.getXform().setYPos(52);
+    this.mItem4.getXform().setXPos(80);
+    this.mItem4.getXform().setYPos(80);
     
     this.mItem5 = new Item(this.logo_clue);
     this.mItem5.getXform().setXPos(35);
@@ -815,21 +815,21 @@ PlayGame4.prototype.draw = function () {
     this.mItem2.draw(this.mCamera); 
     this.mItem3.draw(this.mCamera);
     this.mItem4.draw(this.mCamera);
-    this.mItem5.draw(this.mCamera);
-    this.mItem6.draw(this.mCamera);
-    this.mItem7.draw(this.mCamera); 
-    this.mItem8.draw(this.mCamera);
-    this.mItem9.draw(this.mCamera);
-    this.mItem10.draw(this.mCamera);
-    this.mItem11.draw(this.mCamera);
-    this.mItem12.draw(this.mCamera);
-    this.mItem13.draw(this.mCamera);
-    this.mItem14.draw(this.mCamera);
-    this.mItem15.draw(this.mCamera);
-    this.mItem16.draw(this.mCamera);
-    this.mItem17.draw(this.mCamera);
-    this.mItem18.draw(this.mCamera);
-    this.mItem19.draw(this.mCamera);
+//    this.mItem5.draw(this.mCamera);
+//    this.mItem6.draw(this.mCamera);
+//    this.mItem7.draw(this.mCamera); 
+//    this.mItem8.draw(this.mCamera);
+//    this.mItem9.draw(this.mCamera);
+//    this.mItem10.draw(this.mCamera);
+//    this.mItem11.draw(this.mCamera);
+//    this.mItem12.draw(this.mCamera);
+//    this.mItem13.draw(this.mCamera);
+//    this.mItem14.draw(this.mCamera);
+//    this.mItem15.draw(this.mCamera);
+//    this.mItem16.draw(this.mCamera);
+//    this.mItem17.draw(this.mCamera);
+//    this.mItem18.draw(this.mCamera);
+//    this.mItem19.draw(this.mCamera);
     
     this.mStartCaption.draw(this.mCamera);
     this.mCaptionA.draw(this.mCamera);
@@ -1212,116 +1212,12 @@ PlayGame4.prototype.update = function () {
         this.mItem4.getXform().setYPos(-1);
         this.mItem4BBox = this.mItem4.getBBox();
     }
-   
-    if(hBbox.intersectsBound(this.mItem5BBox)){     
-        this.mItem5.getXform().setXPos(-1);
-        this.mItem5.getXform().setYPos(-1);
-        this.mItem5BBox = this.mItem5.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem6BBox)){     
-        this.mItem6.getXform().setXPos(-1);
-        this.mItem6.getXform().setYPos(-1);
-        this.mItem6BBox = this.mItem6.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem7BBox)){     
-        this.mItem7.getXform().setXPos(-1);
-        this.mItem7.getXform().setYPos(-1);
-        this.mItem7BBox = this.mItem7.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem8BBox)){     
-        this.mItem8.getXform().setXPos(-1);
-        this.mItem8.getXform().setYPos(-1);
-        this.mItem8BBox = this.mItem8.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem9BBox)){ 
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(35, 55);
-//        this.mItem9.getXform().setXPos(-1);
-//        this.mItem9.getXform().setYPos(-1);
-//        this.mItem9BBox = this.mItem9.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem10BBox)){ 
-        this.mHero.getXform().setSize(1.5, 1.5);
-        
-//        this.mItem10.getXform().setXPos(-1);
-//        this.mItem10.getXform().setYPos(-1);
-//        this.mItem10BBox = this.mItem10.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem11BBox)){    
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(47.5, 59);
-//        this.mItem11.getXform().setXPos(-1);
-//        this.mItem11.getXform().setYPos(-1);
-//        this.mItem11BBox = this.mItem11.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem12BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(88, 72);
-//        this.mItem12.getXform().setXPos(-1);
-//        this.mItem12.getXform().setYPos(-1);
-//        this.mItem12BBox = this.mItem12.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem13BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        
-//        this.mItem13.getXform().setXPos(-1);
-//        this.mItem13.getXform().setYPos(-1);
-//        this.mItem13BBox = this.mItem13.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem14BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(82, 24);
-//        this.mItem14.getXform().setXPos(-1);
-//        this.mItem14.getXform().setYPos(-1);
-//        this.mItem14BBox = this.mItem14.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem15BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(57.5, 73);
-//        this.mItem15.getXform().setXPos(-1);
-//        this.mItem15.getXform().setYPos(-1);
-//        this.mItem15BBox = this.mItem15.getBBox();
-    }
-    
-    
-    if(hBbox.intersectsBound(this.mItem16BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(52.5, 20);
-//        this.mItem16.getXform().setXPos(-1);
-//        this.mItem16.getXform().setYPos(-1);
-//        this.mItem16BBox = this.mItem16.getBBox();
-    }
-    
-    if(hBbox.intersectsBound(this.mItem17BBox)){
-        this.mHero.getXform().setSize(1.5, 1.5);
-        this.mHero.getXform().setPosition(77, 13);
-//        this.mItem17.getXform().setXPos(-1);
-//        this.mItem17.getXform().setYPos(-1);
-//        this.mItem17BBox = this.mItem17.getBBox();
-    }
+
+
     
 
-    if(hBbox.intersectsBound(this.mItem18BBox)){
-        this.mItem18.getXform().setXPos(-1);
-        this.mItem18.getXform().setYPos(-1);
-        this.mItem18BBox = this.mItem18.getBBox();
-    }
     
-    if(hBbox.intersectsBound(this.mItem19BBox)){
-        this.mItem19.getXform().setXPos(-1);
-        this.mItem19.getXform().setYPos(-1);
-        this.mItem19BBox = this.mItem19.getBBox();
-    }
+
 
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         gEngine.GameLoop.stop();   
