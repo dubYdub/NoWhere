@@ -18,6 +18,8 @@ function PlayGame4() {
     this.logo_item = "assets/Map4Clues/item-green.png"
     this.logo_clue = "assets/Map4Clues/clue-green.png"
     this.kBg = "assets/bg.png";
+    
+    this.bgmusic = "assets/bgm/4.mp3";
 
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map4Clues/openWords.png";
@@ -195,10 +197,13 @@ PlayGame4.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kCaption9);
     gEngine.Textures.loadTexture(this.kCaption10);
     gEngine.Textures.loadTexture(this.kCaption11);
+    
+    gEngine.AudioClips.loadAudio(this.bgmusic);
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
 
 PlayGame4.prototype.unloadScene = function () {
+    gEngine.AudioClips.stopBackgroundAudio();
 //    gEngine.Textures.unloadTexture(this.logo1);
 //    gEngine.Textures.unloadTexture(this.kBg);
 //    gEngine.Textures.unloadTexture(this.kBgNormal);

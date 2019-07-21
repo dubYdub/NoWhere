@@ -18,6 +18,10 @@ function PlayGame2() {
     this.logo_item = "assets/Map2Clues/item-yellow.png"
     this.logo_clue = "assets/Map2Clues/clue-yellow.png"
     this.kBg = "assets/bg.png";
+    
+    this.bgmusic2 = "assets/bgm/2.mp3";
+    this.bgmusic3 = "assets/bgm/3.mp3";
+    this.switch_music = 0;
 
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map2Clues/openWords.png";
@@ -158,11 +162,13 @@ PlayGame2.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kCaption7);
     gEngine.Textures.loadTexture(this.kCaption8);
     gEngine.Textures.loadTexture(this.kCaption9);
-
+    gEngine.AudioClips.loadAudio(this.bgmusic2);
+    gEngine.AudioClips.loadAudio(this.bgmusic3);
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
 
 PlayGame2.prototype.unloadScene = function () {
+    gEngine.AudioClips.stopBackgroundAudio();
 //    gEngine.Textures.unloadTexture(this.logo1);
 //    gEngine.Textures.unloadTexture(this.kBg);
 //    gEngine.Textures.unloadTexture(this.kBgNormal);
@@ -189,6 +195,7 @@ PlayGame2.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([1,0.98,0.85,1]);   
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
    
+    gEngine.AudioClips.playBackgroundAudio(this.bgmusic2);
 
     this.msquare1 = new Item(this.logo1);
     this.msquare1.getXform().setPosition(7.5, 5);
@@ -701,6 +708,11 @@ PlayGame2.prototype.update = function () {
     this.mHero.update();
     //this.mBg.update();
     
+    if(this.mClueNum === 6 && this.switch_music === 0){
+        gEngine.AudioClips.stopBackgroundAudio();
+        gEngine.AudioClips.playBackgroundAudio(this.bgmusic3);
+        this.switch_music = 1;
+    }
     
 //    this.mMsg.setText(this.kDelta);
 

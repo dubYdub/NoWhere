@@ -18,6 +18,14 @@ function PlayGame() {
     this.logo_clue = "assets/Map1Clues/clue-blue.png";
     this.logo_item = "assets/Map1Clues/item-blue.png";
     this.heroLogo = "assets/Map1Clues/player1.png"
+    
+    this.bgmusic = "assets/bgm/1.mp3";
+    this.bgmusic2 = "assets/bgm/2.mp3";
+    
+    this.soundbook = "assets/sound/book.mp3"
+    this.soundbook_played = 0;
+    this.timer = 0;
+
 
     
     this.kBgNormal = "assets/bg_normal.png";
@@ -112,6 +120,10 @@ PlayGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kCaption5);
     gEngine.Textures.loadTexture(this.kCaption6);
     gEngine.Textures.loadTexture(this.heroLogo);
+    
+    gEngine.AudioClips.loadAudio(this.bgmusic);
+    gEngine.AudioClips.loadAudio(this.bgmusic2);
+    gEngine.AudioClips.loadAudio(this.soundbook);
 
 //    gEngine.Textures.loadTexture(this.Caption1);
 };
@@ -121,7 +133,8 @@ PlayGame.prototype.unloadScene = function () {
 //    gEngine.Textures.unloadTexture(this.kBg);
 //    gEngine.Textures.unloadTexture(this.kBgNormal);
 //    gEngine.Textures.unloadTexture(this.Caption1);
-
+    gEngine.AudioClips.stopBackgroundAudio();
+    
     //    gEngine.Textures.unloadTexture(this.kLogo);
     if (this.nextScene === "Map2") {
         gEngine.Core.startScene(new PlayGame2());
@@ -142,6 +155,9 @@ PlayGame.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([1,0.98,0.85,1]);   
     gEngine.DefaultResources.setGlobalAmbientIntensity(3);
+    
+    gEngine.AudioClips.playBackgroundAudio(this.bgmusic);
+
     
     var r1 = new Renderable();
     r1.setColor([0, 0, 0, 1]);
@@ -505,7 +521,7 @@ PlayGame.prototype.update = function () {
     this.mCamera.update();
     this.mHero.update();
     //this.mBg.update();
-    
+    this.timer += 1;
     
 //    this.mMsg.setText(this.kDelta);
 
@@ -646,18 +662,32 @@ PlayGame.prototype.update = function () {
     // 道具一：加速
     var hBbox = this.mHero.getBBox();
     if(hBbox.intersectsBound(this.mItem1BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.U)){
+        gEngine.AudioClips.stopBackgroundAudio();
+        gEngine.AudioClips.playBackgroundAudio(this.bgmusic2);
         this.kDelta = 0.5;
         this.mItem1.getXform().setXPos(-100);
         this.mItem1.getXform().setYPos(-100);
         this.mItem1BBox = this.mItem1.getBBox();
     }
     //道具二：减速
-    if(hBbox.intersectsBound(this.mItem2BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.I)){
-        this.kDelta = 0.1;
-        this.mItem2.getXform().setXPos(-100);
-        this.mItem2.getXform().setYPos(-100);
-        this.mItem2BBox = this.mItem2.getBBox();
+    
+    if(this.timer > 15){
+        this.timer = 0
+        if(hBbox.intersectsBound(this.mItem2BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.I)){
+            this.mItem2.getXform().setXPos(-100);
+            this.mItem2.getXform().setYPos(-100);
+            this.mItem2BBox = this.mItem2.getBBox(); 
+            gEngine.AudioClips.playACue(this.soundbook);
+            this.kDelta = 0.1;           
+        }
     }
+//    if(hBbox.intersectsBound(this.mItem2BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.I)){
+//        gEngine.AudioClips.playACue(this.soundbook);
+//        this.kDelta = 0.1;
+//        this.mItem2.getXform().setXPos(-100);
+//        this.mItem2.getXform().setYPos(-100);
+//        this.mItem2BBox = this.mItem2.getBBox();
+//    }
     
     if(hBbox.intersectsBound(this.mItem3BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.O)){
         this.mGlobalLightSet.getLightAt(0).setIntensity(7);
