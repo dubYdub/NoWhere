@@ -70,6 +70,12 @@ function PlayGame2() {
     this.msquare37 = null;
     this.msquare38 = null;
     this.msquare39 = null;  
+    
+        
+    this.mBsquare1 = null;
+    this.mBsquare2 = null;
+    this.mBsquare3 = null;
+    this.mBsquare4 = null;
 
     this.mHero = null;
     this.mItem1 = null; 
@@ -336,6 +342,26 @@ PlayGame2.prototype.initialize = function () {
     this.msquare39.getXform().setPosition(65, 45);
     this.msquare39.getXform().setSize(5, 5);
     
+    this.mBsquare1 = new Renderable();
+    this.mBsquare1.getXform().setPosition(-100, 50);
+    this.mBsquare1.getXform().setSize(200, 200);
+    this.mBsquare1.setColor([0, 0, 0, 1]);
+    
+    this.mBsquare2 = new Renderable();
+    this.mBsquare2.getXform().setPosition(200, 50);
+    this.mBsquare2.getXform().setSize(200, 200);
+    this.mBsquare2.setColor([0, 0, 0, 1]);
+    
+    this.mBsquare3 = new Renderable();
+    this.mBsquare3.getXform().setPosition(50, 125);
+    this.mBsquare3.getXform().setSize(100, 50);
+    this.mBsquare3.setColor([0, 0, 0, 1]);
+    
+    this.mBsquare4 = new Renderable();
+    this.mBsquare4.getXform().setPosition(50, -25);
+    this.mBsquare4.getXform().setSize(100, 50);
+    this.mBsquare4.setColor([0, 0, 0, 1]);
+    
     
 
     this.mHero = new Hero(this.heroLogo);
@@ -591,6 +617,11 @@ PlayGame2.prototype.draw = function () {
     this.msquare37.draw(this.mCamera);
     this.msquare38.draw(this.mCamera);
     this.msquare39.draw(this.mCamera);
+    
+    this.mBsquare1.draw(this.mCamera);
+    this.mBsquare2.draw(this.mCamera);
+    this.mBsquare3.draw(this.mCamera);
+    this.mBsquare4.draw(this.mCamera);
     
     this.mHero.draw(this.mCamera);
     this.mItem1.draw(this.mCamera);

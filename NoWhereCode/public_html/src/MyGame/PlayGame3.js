@@ -17,7 +17,7 @@ function PlayGame3() {
     this.heroLogo = "assets/Map3Clues/blue-yellow.png"
     this.logo_item = "assets/Map3Clues/item-red.png"
     this.logo_clue = "assets/Map3Clues/clue-red.png"
-    this.kBg = "assets/logo1.png";
+    this.kBg = "assets/bg.png";
 
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map3Clues/openWords.png";
@@ -94,6 +94,12 @@ function PlayGame3() {
     this.msquare59 = null;
     this.msquare60 = null;
     this.msquare61 = null;
+    
+        
+    this.mBsquare1 = null;
+    this.mBsquare2 = null;
+    this.mBsquare3 = null;
+    this.mBsquare4 = null;
 
     this.mHero = null;
     this.mItem1 = null; 
@@ -466,7 +472,25 @@ PlayGame3.prototype.initialize = function () {
     this.msquare61.getXform().setPosition(36.25, 25);
     this.msquare61.getXform().setSize(2.5, 5);
     
+    this.mBsquare1 = new Renderable();
+    this.mBsquare1.getXform().setPosition(-100, 50);
+    this.mBsquare1.getXform().setSize(200, 200);
+    this.mBsquare1.setColor([0, 0, 0, 1]);
     
+    this.mBsquare2 = new Renderable();
+    this.mBsquare2.getXform().setPosition(200, 50);
+    this.mBsquare2.getXform().setSize(200, 200);
+    this.mBsquare2.setColor([0, 0, 0, 1]);
+    
+    this.mBsquare3 = new Renderable();
+    this.mBsquare3.getXform().setPosition(50, 125);
+    this.mBsquare3.getXform().setSize(100, 50);
+    this.mBsquare3.setColor([0, 0, 0, 1]);
+    
+    this.mBsquare4 = new Renderable();
+    this.mBsquare4.getXform().setPosition(50, -25);
+    this.mBsquare4.getXform().setSize(100, 50);
+    this.mBsquare4.setColor([0, 0, 0, 1]);
 
     this.mHero = new Hero(this.heroLogo);
     this.mHero.getXform().setPosition(57.5, 97.5);
@@ -799,6 +823,11 @@ PlayGame3.prototype.draw = function () {
     this.msquare59.draw(this.mCamera);
     this.msquare60.draw(this.mCamera);
     this.msquare61.draw(this.mCamera);
+    
+    this.mBsquare1.draw(this.mCamera);
+    this.mBsquare2.draw(this.mCamera);
+    this.mBsquare3.draw(this.mCamera);
+    this.mBsquare4.draw(this.mCamera);
     
     this.mHero.draw(this.mCamera);
     this.mItem1.draw(this.mCamera);
