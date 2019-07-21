@@ -14,13 +14,13 @@
 function PlayGame4() {    
     // The camera to view the scene
     this.logo1 = "assets/Map3Clues/black.png"
-    this.heroLogo = "assets/Map3Clues/blue-yellow.png"
-    this.logo_item = "assets/Map3Clues/item-red.png"
-    this.logo_clue = "assets/Map3Clues/clue-red.png"
+    this.heroLogo = "assets/Map4Clues/player.png"
+    this.logo_item = "assets/Map4Clues/item-green.png"
+    this.logo_clue = "assets/Map4Clues/clue-green.png"
     this.kBg = "assets/bg.png";
 
     this.kBgNormal = "assets/bg_normal.png";
-    this.kCaption1 = "assets/Map3Clues/openWords.png";
+    this.kCaption1 = "assets/Map4Clues/openWords.png";
     this.kCaption2 = "assets/Map3Clues/clue1.png";
     this.kCaption3 = "assets/Map3Clues/clue2.png";
     this.kCaption4 = "assets/Map3Clues/clue3.png";
@@ -1363,7 +1363,7 @@ PlayGame4.prototype.update = function () {
     }
     
     // For the Start Caption
-    if (this.judgeArea(57.5, 97.5, 3) && (this.mStartCaption.isRead == false)) {
+    if (this.judgeArea(50, 97.5, 3) && (this.mStartCaption.isRead == false)) {
         this.mStartCaption.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);
         this.IsMove = false;
@@ -1565,7 +1565,11 @@ PlayGame4.prototype.update = function () {
        gEngine.GameLoop.stop();
    }
    
-   
+
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        this.nextScene = "Myself";
+        gEngine.GameLoop.stop();
+    }
 //   // This is used to show the current mouse position.
 //    var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;
 //        this.mMsg.setText(msg); 

@@ -171,6 +171,8 @@ PlayGame2.prototype.unloadScene = function () {
     //    gEngine.Textures.unloadTexture(this.kLogo);
     if (this.nextScene === "Map3") {
         gEngine.Core.startScene(new PlayGame3());
+    } else if (this.nextScene === "Myself") {
+        gEngine.Core.startScene(new PlayGame2());
     } else {
         gEngine.Core.startScene(new StartUI());
     }
@@ -1240,6 +1242,11 @@ PlayGame2.prototype.update = function () {
        gEngine.GameLoop.stop();
    }
    
+
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        this.nextScene = "Myself";
+        gEngine.GameLoop.stop();
+    }
    
 //   // This is used to show the current mouse position.
 //    var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;

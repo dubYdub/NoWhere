@@ -121,6 +121,7 @@ function PlayGame3() {
     this.mItem17 = null;
     this.mItem18 = null;
     this.mItem19 = null;
+    this.mItem20 = null;
     
     this.mItem1BBox = null;
     this.mItem2BBox = null;
@@ -141,6 +142,8 @@ function PlayGame3() {
     this.mItem17BBox = null;
     this.mItem18BBox = null;
     this.mItem19BBox = null;
+    this.mItem20BBox = null;
+
      
     this.heroLight = null;
     this.heroCamera = null;
@@ -209,8 +212,10 @@ PlayGame3.prototype.unloadScene = function () {
 //    gEngine.Textures.unloadTexture(this.Caption1);
 
     //    gEngine.Textures.unloadTexture(this.kLogo);
-    if (this.nextScene === "Map2") {
-        gEngine.Core.startScene(new StartUI());
+    if (this.nextScene === "Map4") {
+        gEngine.Core.startScene(new PlayGame4());
+    } else if (this.nextScene === "Myself") {
+        gEngine.Core.startScene(new PlayGame3());
     } else {
         gEngine.Core.startScene(new StartUI());
     }
@@ -636,6 +641,10 @@ PlayGame3.prototype.initialize = function () {
     this.mItem19.getXform().setXPos(50);
     this.mItem19.getXform().setYPos(2.5);
     
+    this.mItem20 = new Item(this.logo_item);
+    this.mItem20.getXform().setXPos(97.5);
+    this.mItem20.getXform().setYPos(55);
+    
     this.mMsg = new FontRenderable("");
     this.mMsg.setColor([1, 1, 1, 1]);
     this.mMsg.getXform().setPosition(50, 2);
@@ -684,6 +693,7 @@ PlayGame3.prototype.initialize = function () {
      this.mItem17BBox = this.mItem17.getBBox();
      this.mItem18BBox = this.mItem18.getBBox();
      this.mItem19BBox = this.mItem19.getBBox();
+     this.mItem20BBox = this.mItem20.getBBox();
      
      this.mStartCaption = new Caption(this.kCaption1);
      this.mCaptionA = new Caption(this.kCaption2);
@@ -856,6 +866,7 @@ PlayGame3.prototype.draw = function () {
     this.mItem17.draw(this.mCamera);
     this.mItem18.draw(this.mCamera);
     this.mItem19.draw(this.mCamera);
+    this.mItem20.draw(this.mCamera);
     
     this.mStartCaption.draw(this.mCamera);
     this.mCaptionA.draw(this.mCamera);
@@ -1362,6 +1373,8 @@ PlayGame3.prototype.update = function () {
         this.mItem19.getXform().setYPos(-1);
         this.mItem19BBox = this.mItem19.getBBox();
     }
+    
+    
 
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         gEngine.GameLoop.stop();   
@@ -1425,7 +1438,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption A
-    if (this.judgeArea(67.5, 24, 2.5) && (this.mCaptionA.isRead == false)) {
+    if (this.judgeArea(68,75, 23.75, 2) && (this.mCaptionA.isRead == false)) {
         this.mCaptionA.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);
         this.IsMove = false;
@@ -1445,7 +1458,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption B
-    if (this.judgeArea(13, 28.75, 2.5) && (this.mCaptionB.isRead == false)) {
+    if (this.judgeArea(13.75, 28.75, 2) && (this.mCaptionB.isRead == false)) {
         this.mCaptionB.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1467,7 +1480,7 @@ PlayGame3.prototype.update = function () {
     
     
     // For the Caption C
-    if (this.judgeArea(13, 12.7, 2.5) && (this.mCaptionC.isRead == false)) {
+    if (this.judgeArea(13.75, 13.75, 2) && (this.mCaptionC.isRead == false)) {
         this.mCaptionC.mCaption1.getXform().setSize(120,120);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1487,7 +1500,7 @@ PlayGame3.prototype.update = function () {
     }
    
     // For the Caption D
-    if (this.judgeArea(48, 52, 2.5) && (this.mCaptionD.isRead == false)) {
+    if (this.judgeArea(48.75, 51.25, 2) && (this.mCaptionD.isRead == false)) {
         this.mCaptionD.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1507,7 +1520,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption E
-    if (this.judgeArea(35, 72, 2.5) && (this.mCaptionE.isRead == false)) {
+    if (this.judgeArea(33.75, 73.75, 2) && (this.mCaptionE.isRead == false)) {
         this.mCaptionE.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1527,7 +1540,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption F
-    if (this.judgeArea(87, 79.5, 2) && (this.mCaptionF.isRead == false)) {
+    if (this.judgeArea(88.75, 81.25, 2) && (this.mCaptionF.isRead == false)) {
         this.mCaptionF.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1548,7 +1561,7 @@ PlayGame3.prototype.update = function () {
     }
   
     // For the Caption G
-    if (this.judgeArea(67.5, 18, 2.5) && (this.mCaptionG.isRead == false)) {
+    if (this.judgeArea(66.25, 18.75, 2) && (this.mCaptionG.isRead == false)) {
         this.mCaptionG.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1567,7 +1580,7 @@ PlayGame3.prototype.update = function () {
     }
     
     // For the Caption H
-    if (this.judgeArea(87, 79.5, 2.5) && (this.mCaptionH.isRead == false)) {
+    if (this.judgeArea(86.25, 6.25, 2) && (this.mCaptionH.isRead == false)) {
         this.mCaptionH.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
@@ -1590,9 +1603,9 @@ PlayGame3.prototype.update = function () {
     
     
     // if meet the entrance
-    if (this.judgeArea(37.5, 52.5, 3) && (this.mEndCaption.isRead == false)) {
+    if (this.judgeArea(97.5, 55, 3) && (this.mEndCaption.isRead == false)) {
         if ((this.mCaptionA.isRead) && (this.mCaptionB.isRead) && (this.mCaptionC.isRead) && (this.mCaptionD.isRead) && (this.mCaptionE.isRead)
-                && (this.mCaptionF.isRead) && (this.mCaptionG.isRead)) {
+                && (this.mCaptionF.isRead) && (this.mCaptionG.isRead) && (this.mCaptionH.isRead)) {
             this.mEndCaption.mCaption1.getXform().setSize(100,100);
             this.switchCamera(true);    
             this.IsMove = false;
@@ -1608,10 +1621,15 @@ PlayGame3.prototype.update = function () {
    
    // When this level is finished
    if (this.mEndCaption.isRead && gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter)) {
-       this.nextScene = "Map2";
+       this.nextScene = "Map4";
        gEngine.GameLoop.stop();
    }
-   
+
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
+        this.nextScene = "Myself";
+        gEngine.GameLoop.stop();
+    }
+    
    
 //   // This is used to show the current mouse position.
 //    var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;
