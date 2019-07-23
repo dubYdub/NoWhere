@@ -1918,15 +1918,15 @@ PlayGame3.prototype.update = function () {
             this.mPositionMsg.setText("- You -");
             this.mPositionMsg.setTextHeight(2.7);
             this.mClueMsg.setText("- Lost memories:" + this.mClueNum + " -");
-            this.mClueMsg.setTextHeight(2.5);
-            this.mClueMsg.getXform().setPosition(8, 2);
+            this.mClueMsg.setTextHeight(2.2);
+            this.mClueMsg.getXform().setPosition(4, 98);
             
             // For everywhere
             if (this.foundEntrance) {
-                this.mEverywhereMsg.setText("Entrance");
-                this.mEverywhereMsg.getXform().setPosition(36.5, 51);
+                this.mEverywhereMsg.setText("Exit");
+                this.mEverywhereMsg.getXform().setPosition(94.5, 55);
                 this.mEverywhereMsg.setTextHeight(2);
-                this.mEverywhere.getXform().setPosition(37.5,52.5);
+                this.mEverywhere.getXform().setPosition(96.5, 55);
                 this.mEverywhere.getXform().setSize(3,3);
             }
             
@@ -2213,9 +2213,9 @@ PlayGame3.prototype.update = function () {
    
 //   // This is used to show the current mouse position.
     //var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;
-        var msg = " " + this.mHero.getXform().getPosition();
-
-        this.mMsg.setText(msg); 
-        this.mMsg.getXform().setPosition(50,2);
+//        var msg = " " + this.mHero.getXform().getPosition();
+//
+//        this.mMsg.setText(msg); 
+//        this.mMsg.getXform().setPosition(50,2);
         
 };
