@@ -769,7 +769,7 @@ PlayGame4.prototype._initializeLights = function (posHero) {
     var l = this._createALight(Light.eLightType.ePointLight,
             [posHero[0], posHero[1], 5],         // position
             [0, 0, -1],          // Direction 
-            [3.7, 2.2, 2.55, 1.6],  // some color
+            [1.8, 2.7, 1.2, 1.6],  // some color
             8, 10,               // near and far distances
             0.1, 0.2,            // inner and outer cones
             3,                   // intensity
