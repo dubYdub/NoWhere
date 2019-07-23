@@ -232,10 +232,10 @@ PlayGame4.prototype.unloadScene = function () {
 
     //    gEngine.Textures.unloadTexture(this.kLogo);
     if (this.nextScene === "Map5") {
-        gEngine.Core.startScene(new PlayGame5   ());
-    } else if (this.nextScene === "Myself"){
+        gEngine.Core.startScene(new PlayGame5());
+    } else if (this.nextScene === "Myself") {
         gEngine.Core.startScene(new PlayGame4());
-    }
+    } 
 
 };
 
