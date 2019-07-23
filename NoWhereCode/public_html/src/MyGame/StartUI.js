@@ -31,14 +31,14 @@ StartUI.prototype.loadScene = function () {
 StartUI.prototype.unloadScene = function () {
 //    gEngine.Textures.unloadTexture(this.kLogo1);
     if (this.mNextScene == "PlayGame") {
-        gEngine.Core.startScene(new PlayGame2());
+        gEngine.Core.startScene(new PlayGame());
     } else if (this.mNextScene == "AuthorInfo") {
         gEngine.Core.startScene(new AuthorInfo());
     } else if (this.mNextScene == "GameRuleInfo") {
         gEngine.Core.startScene(new GameRuleInfo());
     } else if (this.mNextScene == "MainPage") {
         gEngine.Core.startScene(new MyGame());
-    }
+    } 
 };
 
 StartUI.prototype.initialize = function () {
@@ -136,6 +136,6 @@ StartUI.prototype.update = function () {
         var msg = " X=" + gEngine.Input.getMousePosX() + " Y=" + gEngine.Input.getMousePosY();
         this.mMsg.setText(msg);
     }
-
+  
     
 };
