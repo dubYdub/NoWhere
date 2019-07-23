@@ -20,7 +20,7 @@ function PlayGame4() {
     this.kBg = "assets/bg.png";
     this.door = "assets/door.png";
     
-    this.bgmusic = "assets/bgm/NO4-start-end-2.mp3";
+    this.bgmusic = "assets/bgm/NO4-start-end.mp3";
 
     this.kBgNormal = "assets/bg_normal.png";
     this.kCaption1 = "assets/Map4Clues/openWords.png";
