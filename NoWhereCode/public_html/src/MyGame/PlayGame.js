@@ -594,7 +594,6 @@ PlayGame.prototype.update = function () {
     this.mCamera.update();
     this.mHero.update();
     //this.mBg.update();
-    this.timer += 1;
     
 //    this.mMsg.setText(this.kDelta);
 
@@ -830,12 +829,6 @@ PlayGame.prototype.update = function () {
     }
     
     
-    
-    
-    
-    
-    
-    
     // press V to follow
     if (gEngine.Input.isKeyClicked(gEngine.Input.keys.V)) { 
         //if (this.mCamera.getWCWidth() == 100) {
@@ -916,35 +909,47 @@ PlayGame.prototype.update = function () {
         this.IsMove = false;
         this.mCaptionA.isRead = true;
         this.mClueNum --;
-        this.mMsg.getXform().setPosition(75, 2);
-        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.getXform().setPosition(70, 2);
+        this.mMsg.setText("- Click Enter to close - ");
         this.mMsg.setTextHeight(2);
-
+        gEngine.AudioClips.playACue(this.soundbook);
     }
- 
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionA.isRead == true)) {
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter) && (this.mCaptionA.isRead == true)) {
         this.mCaptionA.mCaption1.getXform().setSize(0, 0);     
         this.switchCamera(false); 
         this.IsMove = true; 
     }
     
+//    if(this.timer > 15){
+//        this.timer = 0
+//        if(hBbox.intersectsBound(this.mItem2BBox) || gEngine.Input.isKeyPressed(gEngine.Input.keys.I)){
+//            this.mItem2.getXform().setXPos(-100);
+//            this.mItem2.getXform().setYPos(-100);
+//            this.mItem2BBox = this.mItem2.getBBox(); 
+//            gEngine.AudioClips.playACue(this.soundbook);
+//            this.kDelta = 0.1;           
+//        }
+//    }
+    
     // For the Caption B
     if (this.judgeArea(55, 65, 2.5) && (this.mCaptionB.isRead == false)) {
+        //gEngine.AudioClips.playACue(this.soundbook);
         this.mCaptionB.mCaption1.getXform().setSize(100,100);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionB.isRead = true;
         this.mClueNum--;
-        this.mMsg.getXform().setPosition(75, 2);
-        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.getXform().setPosition(70, 2);
+        this.mMsg.setText("- Click Enter to close - ");
         this.mMsg.setTextHeight(2);
         this.itemPoint1.isFound = true;
         this.addColor();
-
+        gEngine.AudioClips.playACue(this.soundbook);
     }
-        
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionB.isRead == true)) {
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter) && (this.mCaptionB.isRead == true)) {
         this.mCaptionB.mCaption1.getXform().setSize(0, 0);     
         this.switchCamera(false); 
         this.IsMove = true; 
@@ -952,21 +957,22 @@ PlayGame.prototype.update = function () {
     
     // For the Caption C
     if (this.judgeArea(55, 95, 2.5) && (this.mCaptionC.isRead == false)) {
+        //gEngine.AudioClips.playACue(this.soundbook);
         this.mCaptionC.mCaption1.getXform().setSize(120,120);
         this.switchCamera(true);    
         this.IsMove = false;
         this.mCaptionC.isRead = true;
         this.mClueNum--;
-        this.mMsg.getXform().setPosition(75, 2);
-        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.getXform().setPosition(70, 2);
+        this.mMsg.setText("- Click Enter to close - ");
         this.mMsg.setTextHeight(2);
         this.itemPoint2.isFound = true;
         this.addColor();
-
+        gEngine.AudioClips.playACue(this.soundbook);
     }
         
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionC.isRead == true)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter) && (this.mCaptionC.isRead == true)) {
         this.mCaptionC.mCaption1.getXform().setSize(0, 0);     
         this.switchCamera(false); 
         this.IsMove = true; 
@@ -979,16 +985,16 @@ PlayGame.prototype.update = function () {
         this.IsMove = false;
         this.mCaptionD.isRead = true;
         this.mClueNum--;
-        this.mMsg.getXform().setPosition(75, 2);
-        this.mMsg.setText("- Click B to close - ");
+        this.mMsg.getXform().setPosition(70, 2);
+        this.mMsg.setText("- Click Enter to close - ");
         this.mMsg.setTextHeight(2);
         this.itemPoint3.isFound = true;
         this.addColor();
-
+        gEngine.AudioClips.playACue(this.soundbook);
     }
         
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B) && (this.mCaptionD.isRead == true)) {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Enter) && (this.mCaptionD.isRead == true)) {
         this.mCaptionD.mCaption1.getXform().setSize(0, 0);     
         this.switchCamera(false); 
         this.IsMove = true; 

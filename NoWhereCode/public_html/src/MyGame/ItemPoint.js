@@ -12,6 +12,7 @@ function ItemPoint(posX, posY) {
     this.item = new Renderable();
     this.item.setColor([1, 1, 1, 1]);
     this.item.getXform().setPosition(posX, posY);
+    this.item.getXform().setRotationInRad(0.78); // In Radians
     this.item.getXform().setSize(0, 0);
     this.isFound = false;
     //this.mDye.setElementPixelPositions(0, 120, 0, 180);
