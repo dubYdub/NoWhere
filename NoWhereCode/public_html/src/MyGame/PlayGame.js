@@ -19,8 +19,8 @@ function PlayGame() {
     this.logo_item = "assets/Map1Clues/item-blue.png";
     this.heroLogo = "assets/Map1Clues/player1.png"
     
-    this.bgmusic = "assets/bgm/1.mp3";
-    this.bgmusic2 = "assets/bgm/2.mp3";
+    this.bgmusic = "assets/bgm/NO1-start-end.mp3";
+//    this.bgmusic2 = "assets/bgm/2.mp3";
     
     this.soundbook = "assets/sound/book.mp3"
     this.soundbook_played = 0;
@@ -131,7 +131,7 @@ PlayGame.prototype.loadScene = function () {
     
     gEngine.Textures.loadTexture(this.door);
     gEngine.AudioClips.loadAudio(this.bgmusic);
-    gEngine.AudioClips.loadAudio(this.bgmusic2);
+//    gEngine.AudioClips.loadAudio(this.bgmusic2);
     gEngine.AudioClips.loadAudio(this.soundbook);
 
 //    gEngine.Textures.loadTexture(this.Caption1);

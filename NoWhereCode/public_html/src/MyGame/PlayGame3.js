@@ -19,8 +19,8 @@ function PlayGame3() {
     this.logo_clue = "assets/Map3Clues/clue-red.png"
     this.kBg = "assets/bg.png";
     
-    this.bgmusic = "assets/bgm/4.mp3";
-    this.bgmusic2 = "assets/bgm/5.mp3";
+    this.bgmusic = "assets/bgm/NO3-start-5.mp3";
+    this.bgmusic2 = "assets/bgm/NO3-6-end.mp3";
     this.soundbook = "assets/sound/book.mp3"
     this.door = "assets/door.png";
 

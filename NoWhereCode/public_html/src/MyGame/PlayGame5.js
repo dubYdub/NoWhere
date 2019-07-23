@@ -25,8 +25,10 @@ function PlayGame5() {
     this.logo_item = "assets/Map1Clues/item-blue.png";
     this.heroLogo = "assets/Map5Clues/player5.png"
     
-    this.bgmusic = "assets/bgm/1.mp3";
-    this.bgmusic2 = "assets/bgm/2.mp3";
+    this.bgmusic = "assets/bgm/NO5.mp3";
+    this.bgmusic2 = "assets/bgm/NO5-end.mp3";
+    this.bgmusic3 = "assets/bgm/ForPlayers.mp3";
+
     
     this.soundbook = "assets/sound/book.mp3"
     this.soundbook_played = 0;
@@ -145,7 +147,8 @@ PlayGame5.prototype.loadScene = function () {
     
     gEngine.Textures.loadTexture(this.door);
     gEngine.AudioClips.loadAudio(this.bgmusic);
-    gEngine.AudioClips.loadAudio(this.bgmusic2);
+    gEngine.AudioClips.loadAudio(this.bgmusic2);    
+    gEngine.AudioClips.loadAudio(this.bgmusic3);
     gEngine.AudioClips.loadAudio(this.soundbook);
 
 //    gEngine.Textures.loadTexture(this.Caption1);
@@ -994,6 +997,8 @@ PlayGame5.prototype.update = function () {
         this.mEndCaption.isRead = true;
         this.readLetter = true;
         this.IsMove = false;
+        gEngine.AudioClips.stopBackgroundAudio();
+        gEngine.AudioClips.playBackgroundAudio(this.bgmusic3);
     }
    
    

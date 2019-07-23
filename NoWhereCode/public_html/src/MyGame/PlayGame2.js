@@ -21,8 +21,8 @@ function PlayGame2() {
     
     this.door = "assets/door.png";
     
-    this.bgmusic2 = "assets/bgm/2.mp3";
-    this.bgmusic3 = "assets/bgm/3.mp3";
+    this.bgmusic2 = "assets/bgm/NO2-start-2.mp3";
+    this.bgmusic3 = "assets/bgm/NO2-3-end.mp3";
     this.switch_music = 0;
 
     this.kBgNormal = "assets/bg_normal.png";
