@@ -15,7 +15,7 @@ function PlayGame3() {
     // The camera to view the scene
     this.logo1 = "assets/Map3Clues/black.png"
     this.heroLogo = "assets/Map3Clues/play3.png"
-    this.logo_item = "assets/Map3Clues/item-red.png"
+    this.logo_item = "assets/Msize.png"
     this.logo_clue = "assets/Map3Clues/clue-red.png"
     this.kBg = "assets/bg.png";
     
@@ -640,53 +640,60 @@ PlayGame3.prototype.initialize = function () {
     this.mItem8.getXform().setYPos(6.25);
     
     this.mItem9 = new Item(this.trans1);
-    this.mItem9.getXform().setXPos(13.75);
-    this.mItem9.getXform().setYPos(83.75);
+//    this.mItem9.getXform().setXPos(12.5);
+//    this.mItem9.getXform().setYPos(85);
     this.mItem9.getXform().setXPos(-100);
     this.mItem9.getXform().setYPos(-100);
+    this.mItem9.getXform().setSize(5,5);
     
     this.mItem10 = new Item(this.logo_item);
     this.mItem10.getXform().setXPos(11.25);
     this.mItem10.getXform().setYPos(71.25);
     
     this.mItem11 = new Item(this.trans2);
-    this.mItem11.getXform().setXPos(21.25);
-    this.mItem11.getXform().setYPos(6.25);
+//    this.mItem11.getXform().setXPos(20);
+//    this.mItem11.getXform().setYPos(7.5);
     this.mItem11.getXform().setXPos(-100);
     this.mItem11.getXform().setYPos(-100);
+    this.mItem11.getXform().setSize(5,5);
     
     this.mItem12 = new Item(this.trans3);
-    this.mItem12.getXform().setXPos(48.75);
-    this.mItem12.getXform().setYPos(46.25);
+//    this.mItem12.getXform().setXPos(47.5);
+//    this.mItem12.getXform().setYPos(45);
     this.mItem12.getXform().setXPos(-100);
     this.mItem12.getXform().setYPos(-100);
+    this.mItem12.getXform().setSize(5,5);
     
     this.mItem13 = new Item(this.logo_item);
     this.mItem13.getXform().setXPos(53.75);
     this.mItem13.getXform().setYPos(36.25);
     
     this.mItem14 = new Item(this.trans4);
-    this.mItem14.getXform().setXPos(58.75);
-    this.mItem14.getXform().setYPos(43.75);
+    this.mItem14.getXform().setXPos(57.5);
+    this.mItem14.getXform().setYPos(45);
+    this.mItem14.getXform().setSize(5,5);
 
     
     this.mItem15 = new Item(this.trans5);
-    this.mItem15.getXform().setXPos(93.75);
-    this.mItem15.getXform().setYPos(18.75);
+//    this.mItem15.getXform().setXPos(92.5);
+//    this.mItem15.getXform().setYPos(17.5);
     this.mItem15.getXform().setXPos(-100);
     this.mItem15.getXform().setYPos(-100);
+    this.mItem15.getXform().setSize(5,5);
     
     this.mItem16 = new Item(this.trans6);
-    this.mItem16.getXform().setXPos(81.25);
-    this.mItem16.getXform().setYPos(36.25);
+//    this.mItem16.getXform().setXPos(82.5);
+//    this.mItem16.getXform().setYPos(35);
     this.mItem16.getXform().setXPos(-100);
     this.mItem16.getXform().setYPos(-100);
+    this.mItem16.getXform().setSize(5,5);
     
     this.mItem17 = new Item(this.trans7);
-    this.mItem17.getXform().setXPos(78.75);
-    this.mItem17.getXform().setYPos(78.75);
+//    this.mItem17.getXform().setXPos(77.5);
+//    this.mItem17.getXform().setYPos(80);
     this.mItem17.getXform().setXPos(-100);
     this.mItem17.getXform().setYPos(-100);
+    this.mItem17.getXform().setSize(5,5);
     
     this.mItem18 = new Item(this.logo_item);
     this.mItem18.getXform().setXPos(50);
@@ -1077,33 +1084,33 @@ PlayGame3.prototype.update = function () {
     
     
     if(this.mCaptionB.isRead){
-        this.mItem16.getXform().setXPos(81.25);
-        this.mItem16.getXform().setYPos(36.25);
+        this.mItem16.getXform().setXPos(82.5);
+        this.mItem16.getXform().setYPos(35);
     }
     
     if(this.mCaptionC.isRead && this.mCaptionD.isRead){
-        this.mItem11.getXform().setXPos(21.25);
-        this.mItem11.getXform().setYPos(6.25);
+        this.mItem11.getXform().setXPos(20);
+        this.mItem11.getXform().setYPos(7.5);
     }
     
     if(this.mCaptionE.isRead){
-        this.mItem9.getXform().setXPos(13.75);
-        this.mItem9.getXform().setYPos(83.75);
+        this.mItem9.getXform().setXPos(12.5);
+        this.mItem9.getXform().setYPos(85);
     }
     
     if(this.mCaptionF.isRead){
-        this.mItem12.getXform().setXPos(48.75);
-        this.mItem12.getXform().setYPos(46.25);
+        this.mItem12.getXform().setXPos(47.5);
+        this.mItem12.getXform().setYPos(45);
     }
     
     if(this.mCaptionG.isRead){
-        this.mItem17.getXform().setXPos(78.75);
-        this.mItem17.getXform().setYPos(78.75);
+        this.mItem17.getXform().setXPos(77.5);
+        this.mItem17.getXform().setYPos(80);
     }
     
     if(this.mCaptionH.isRead && this.mCaptionI.isRead){
-        this.mItem15.getXform().setXPos(93.75);
-        this.mItem15.getXform().setYPos(18.75);
+        this.mItem15.getXform().setXPos(92.5);
+        this.mItem15.getXform().setYPos(17.5);
     }
     
     
@@ -1478,7 +1485,7 @@ PlayGame3.prototype.update = function () {
     
     var size = this.mHero.getXform().getSize();
     
-    if (this.judgeArea(13.75, 83.75, 1.2) && this.mCaptionE.isRead === true) {
+    if (this.judgeArea(12.5, 85, 1.2) && this.mCaptionE.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1492,7 +1499,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(13.75, 83.75, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(12.5, 85, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(35);
@@ -1553,7 +1560,7 @@ PlayGame3.prototype.update = function () {
 //    }
     
     // 11 shunyi
-    if (this.judgeArea(21.25, 6.25, 1.2) && this.mCaptionC.isRead === true && this.mCaptionD.isRead === true) {
+    if (this.judgeArea(20, 7.5, 1.2) && this.mCaptionC.isRead === true && this.mCaptionD.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1567,7 +1574,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(21.25, 6.25, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(20, 7.5, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(47.5);
@@ -1600,7 +1607,7 @@ PlayGame3.prototype.update = function () {
     
     // 12 shunyi
     
-    if (this.judgeArea(48.75, 46.25, 1.2) && this.mCaptionE.isRead === true && this.mCaptionF.isRead === true) {
+    if (this.judgeArea(47.5, 45, 1.2) && this.mCaptionE.isRead === true && this.mCaptionF.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1614,7 +1621,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(48.75, 46.25, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(47.5, 45, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(87.5);
@@ -1679,7 +1686,7 @@ PlayGame3.prototype.update = function () {
 //    }
     
     // 14 shunyi
-    if (this.judgeArea(58.75, 43.75, 1.2)) {
+    if (this.judgeArea(57.5, 45, 1.2)) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1693,7 +1700,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(58.75, 43.75, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(57.5, 45, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(82.5);
@@ -1725,7 +1732,7 @@ PlayGame3.prototype.update = function () {
 //    }
 
     // 15 shunyi
-    if (this.judgeArea(93.75, 18.75, 1.2) && this.mCaptionH.isRead === true && this.mCaptionI.isRead === true) {
+    if (this.judgeArea(92.5, 17.5, 1.2) && this.mCaptionH.isRead === true && this.mCaptionI.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1739,7 +1746,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(93.75, 18.75, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(92.5, 17.5, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(57.5);
@@ -1773,7 +1780,7 @@ PlayGame3.prototype.update = function () {
 
     // 16 shunyi 2
     
-    if (this.judgeArea(81.25, 36.25, 1.2) && this.mCaptionB.isRead === true) {
+    if (this.judgeArea(82.5, 35, 1.2) && this.mCaptionB.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1787,7 +1794,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(81.25, 36.25, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(82.5, 35, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(52.5);
@@ -1822,7 +1829,7 @@ PlayGame3.prototype.update = function () {
  
     // 17 shunyi
     
-    if (this.judgeArea(78.75, 78.75, 1.2) && this.mCaptionG.isRead === true) {
+    if (this.judgeArea(77.5, 80, 1.2) && this.mCaptionG.isRead === true) {
         this.IsMove = false;
         this.timer += 1;
         if(size[0] >= 0.1){
@@ -1836,7 +1843,7 @@ PlayGame3.prototype.update = function () {
                 this.mHero.getXform().setSize(orix, oriy);
                 this.mHeroBBox = this.mHero.getBBox();
             }          
-        }else if(this.judgeArea(78.75, 78.75, 1.2) && (size[0] < 0.10)){
+        }else if(this.judgeArea(77.5, 80, 1.2) && (size[0] < 0.10)){
             //this.IsMove = true;
             this.timer = 0;
             this.mHero.getXform().setXPos(77.5);
