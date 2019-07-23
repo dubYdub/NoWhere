@@ -21,8 +21,8 @@ function PlayGame2() {
     
     this.door = "assets/door.png";
     
-    this.bgmusic2 = "assets/bgm/NO2-start-2.mp3";
-    this.bgmusic3 = "assets/bgm/NO2-3-end.mp3";
+    this.bgmusic2 = "assets/bgm/2.mp3";
+    this.bgmusic3 = "assets/bgm/3.mp3";
     this.switch_music = 0;
 
     this.kBgNormal = "assets/bg_normal.png";
@@ -1586,8 +1586,8 @@ PlayGame2.prototype.update = function () {
    
    // This is used to show the current mouse position.
     //var msg = " X=" + gEngine.Input.getMousePosX()/6.3 + " Y=" + gEngine.Input.getMousePosY()/6.3;
-    var color = this.mHero.getRenderable().getColor();
-    var msg = "nmsl" + color[0] + "nmsl" + color[1] + "nmsl" + color[2] + "nmsl" + color[3];
-        this.mMsg.setText(msg); 
-        this.mMsg.getXform().setPosition(50,2);        
+//    var color = this.mHero.getRenderable().getColor();
+//    var msg = "nmsl" + color[0] + "nmsl" + color[1] + "nmsl" + color[2] + "nmsl" + color[3];
+//        this.mMsg.setText(msg); 
+//        this.mMsg.getXform().setPosition(50,2);        
 };
